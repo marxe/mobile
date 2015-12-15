@@ -1,0 +1,31 @@
+<ion-view view-title="register" align-title="left">
+    <ion-content style="background: url(img/bd.png) center; background-size: cover;">
+        <div class="hero no-header flat">
+            <div class="content">
+                <div class="app-icon"></div>
+            </div>
+        </div>
+        <div class="list">
+            <ion-md-input placeholder="Username" highlight-color="balanced" type="text" ng-model="newUser.username" required ></ion-md-input>
+            <ion-md-input placeholder="First Name" highlight-color="balanced" type="text" ng-model="newUser.fname" required></ion-md-input>
+            <ion-md-input placeholder="Middle Name" highlight-color="balanced" type="text" ng-model="newUser.mname"></ion-md-input>
+            <ion-md-input placeholder="Last Name" highlight-color="balanced" type="text" ng-model="newUser.lname" required></ion-md-input>
+            <ion-md-input placeholder="Birthday" highlight-color="balanced" type="date" ng-model="newUser.bday" required></ion-md-input>
+            <ion-md-input placeholder="Contact Number" highlight-color="balanced" type="text" ng-model="newUser.cnumber" required></ion-md-input>
+            <ion-md-input placeholder="Email" highlight-color="balanced" type="email" ng-model="newUser.email" required></ion-md-input>
+            <ion-md-input placeholder="Password" highlight-color="energized" type="password" ng-model="newUser.password" required></ion-md-input>
+            <ion-md-input placeholder="Password Confirm" highlight-color="energized" type="password" ng-model="newUser.cpassword" required></ion-md-input> <br>
+            <div class="list ink ink-dark title">
+                <center> <h1 class="title black">I am</h1> </center>
+            </div>
+            <ion-list>
+              <ion-radio ng-model="utype" ng-value="'Artisan'">Artisan</ion-radio>
+              <ion-radio ng-model="utype" ng-value="'Designer'">Designer</ion-radio>
+            </ion-list>
+        </div>
+        <div class="padding">
+          <button class="button button-full button-energized-100 ink" ng-click="submit(newUser)">Continue</button>
+          <button ui-sref="app.login" class="button button-full button-royal-100 ink">Login</button>
+        </div>
+    </ion-content>
+</ion-view>
