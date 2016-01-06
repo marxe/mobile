@@ -106,7 +106,7 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('LoginCtrl', function($scope, $timeout, $stateParams, ionicMaterialInk, $ionicLoading, $ionicSideMenuDelegate, localservice)
+.controller('LoginCtrl', function($scope, $timeout, $stateParams, ionicMaterialInk, $ionicLoading, $ionicSideMenuDelegate)
 {
   $scope.$parent.clearFabs();
   $timeout(function()
@@ -126,19 +126,11 @@ angular.module('starter.controllers', [])
 
     // //hide Loading
     // $ionicLoading.hide();
-  $scope.loginForm=localservice.getUser();
-  if(!$scope.loginForm)
-  {
-    console.log($scope.loginForm);
-  }
-  $scope.login = function(loginForm)
-  {
-    localservice.setNewUser(loginForm);
-  }
+
 
   $ionicSideMenuDelegate.canDragContent(false);
 })
-.controller('RegisterCtrl', function($scope, $timeout, $stateParams, ionicMaterialInk, $ionicSideMenuDelegate, localservice, $location)
+.controller('RegisterCtrl', function($scope, $timeout, $stateParams, ionicMaterialInk, $ionicSideMenuDelegate, $location, users)
 {
     $scope.$parent.clearFabs();
     $timeout(function()
@@ -148,25 +140,10 @@ angular.module('starter.controllers', [])
     ionicMaterialInk.displayEffect();
     $ionicSideMenuDelegate.canDragContent(false);
 
-    $scope.submit= function(user)
-    {
-      localservice.setNewUser(user);
-      if(!localservice.getUser())
-      {
-        console.log("the data hasn't been saved!");
-        //message the user
-      }
-      else
-      {
-          $location.path('app/profilepicture');
-      }
+    $scope.submit = function(data){
+      var newuser = new users(data);
+      newuser->save();
     }
-    $scope.uploadProfile = function (file)
-    {
-      console.log(file);
-      $location.path('app/login');
-    }
-
 })
 
 .controller('CategoriesCtrl', function($scope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion, $ionicPopup)
@@ -190,7 +167,7 @@ angular.module('starter.controllers', [])
     ionicMaterialInk.displayEffect();
 })
 
-.controller('ProfileCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk)
+.controller('ProfileCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk,  $ionicActionSheet)
 {
     // Set Header
     $scope.$parent.showHeader();
@@ -218,7 +195,31 @@ angular.module('starter.controllers', [])
     // Set Ink
     ionicMaterialInk.displayEffect();
 
+    $scope.show = function() {
 
+      // Show the action sheet
+      var hideSheet = $ionicActionSheet.show({
+        buttons: [
+          { text: '<b>Share</b> This' },
+          { text: 'Move' }
+        ],
+        destructiveText: 'Delete',
+        titleText: 'Modify your album',
+        cancelText: 'Cancel',
+        cancel: function() {
+             // add cancel code..
+           },
+        buttonClicked: function(index) {
+          return true;
+        }
+      });
+
+      // For example's sake, hide the sheet after two seconds
+      $timeout(function() {
+        hideSheet();
+      }, 2000);
+
+    };
 })
 
 .controller('ActivityCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk)
@@ -339,8 +340,8 @@ angular.module('starter.controllers', [])
 {
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
-    $scope.isExpanded = true;
-    $scope.$parent.setExpanded(true);
+    $scope.isExpanded = false;
+    $scope.$parent.setExpanded(false);
     $scope.$parent.setHeaderFab(false);
 
     // Activate ink for controller

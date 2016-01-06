@@ -14,3 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::resource('user', 'UserController', ['except' => ['create', 'edit']]);
+Route::resource('authen', 'AuthenController', ['only' => ['index', 'store' , 'create']]);

@@ -1,5 +1,19 @@
 <ion-view view-title="Message">
     <ion-content ng-class="{expanded:isExpanded}" class="animate-fade-slide-in">
-
+      <div class="list">
+          <a class="item item-avatar" href="#">
+            <img src="venkman.jpg">
+            <h2>Venkman</h2>
+            <p>Back off, man. I'm a scientist.</p>
+          </a>
+      </div>
+      <div class="bar bar-footer item-input-inset">
+        <label class="item-textarea-wrapper" style="width:100%;">
+          <textarea type="text" placeholder="   Message" ></textarea>
+        </label>
+        <button class="button button-clear">
+          <i class="icon ion-paper-airplane placeholder-icon"></i>
+        </button>
+      </div>
     </ion-content>
 </ion-view>
