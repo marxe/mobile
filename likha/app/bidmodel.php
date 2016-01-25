@@ -25,7 +25,7 @@ class bidmodel extends Model
    *
    * @var array
    */
-  protected $fillable = ['itemid', 'userid', 'ammount', 'status'];
+  protected $fillable = ['itemid', 'userid', 'amount', 'status'];
 
   /**
    * Get the user that owns the bid.
@@ -34,7 +34,7 @@ class bidmodel extends Model
    */
    public function user()
    {
-       return $this->belongsTo('App\usermodel');
+       return $this->belongsTo('App\usermodel','userid');
    }
 
    /**
@@ -44,6 +44,6 @@ class bidmodel extends Model
     */
     public function item()
     {
-        return $this->belongsTo('App\itemmodel');
+        return $this->belongsTo('App\itemmodel','itemid');
     }
 }

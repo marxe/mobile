@@ -1,0 +1,15 @@
+<ion-view view-title="Selection">
+    <ion-content ng-class="{expanded:isExpanded}">
+        <div class="list card stable-bg ink ink-dark">
+          <h4>Select Artisan</h4>
+          <form >
+          <ion-list>
+            <label ng-repeat="human in artisan track by human.bidid" >
+            <ion-radio ng-model="select" ng-value="human.userid" ng-change="save(human.userid)">{{human.user.username}} | {{human.created_at}}</ion-radio>
+            </label>
+          </ion-list>
+          <button class="button button-full button-royal-100 ink" ng-click="record()">Submit</button>
+          </form>
+        </div>
+  </ion-content>
+</ion-view>

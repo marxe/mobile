@@ -34,7 +34,7 @@ class feedbackmodel extends Model
    */
    public function user()
    {
-       return $this->belongsTo('App\usermodel');
+       return $this->belongsTo('App\usermodel','userid');
    }
 
    /**
@@ -44,6 +44,6 @@ class feedbackmodel extends Model
     */
     public function item()
     {
-        return $this->belongsTo('App\itemmodel');
+        return $this->belongsTo('App\itemmodel','itemid');
     }
 }

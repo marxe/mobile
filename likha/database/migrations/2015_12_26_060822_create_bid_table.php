@@ -22,7 +22,7 @@ class CreateBidTable extends Migration
             $table->foreign('userid')
                   ->references('userid')->on('users')
                   ->onUpdate('cascade');
-            $table->decimal('amount', 5, 2);
+            $table->decimal('amount', 10, 2);
             $table->enum('status',['1','0']);
             $table->timestamps();
         });

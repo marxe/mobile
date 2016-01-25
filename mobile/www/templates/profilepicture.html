@@ -5,11 +5,21 @@
                 <div class="app-icon"></div>
             </div>
         </div>
+        <!-- <form ng-submit="uploadProfile(file)" enctype="multipart/form-data"> -->
+        <div class="error">
+          {{message}} <br>
+          {{error.profilepicture}}
+        </div>
         <div class="list">
-            <ion-md-input placeholder="Profile Picture" highlight-color="balanced" type="file" style="width:100%;" ng-file='user.propic'></ion-md-input>
+          <img src="{{file.profilepicture.url}}" alt="" />
+            <ion-md-input placeholder="Profile Picture" ng-file-select="onFileSelect($files)" type="file"></ion-md-input>
         </div>
         <div class="padding">
-          <button ng-click="uploadProfile(user)" class="button button-full button-energized-100 ink">Register</button>
+          <button class="button button-full button-energized-100 ink" type="submit" ng-click="add()">Upload</button>
+          <button  ui-sref="app.login"class="button button-full button-energized-100 ink">Skip</button>
         </div>
+      <!-- </form> -->
+
+
     </ion-content>
 </ion-view>

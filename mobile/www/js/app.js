@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.service', 'ionic-material', 'ionMdInput', 'ngResource'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.service', 'ngFileUpload',  'ionic-material', 'ionMdInput'])
 
 .run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
@@ -20,7 +20,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.service', 'i
     });
 })
 
-.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $httpProvider) {
 
     // Turn off caching for demo simplicity's sake
     $ionicConfigProvider.views.maxCache(0);
@@ -61,7 +61,18 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.service', 'i
             }
         }
     })
-
+    .state('app.selection', {
+        url: '/selection',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/selection.html',
+                controller: 'SelectCtrl'
+            },
+            'fabContent': {
+                template: ''
+            }
+        }
+    })
     .state('app.category', {
         url: '/category',
         views: {
@@ -157,11 +168,30 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.service', 'i
                 controller: 'ProfileCtrl'
             },
             'fabContent': {
-                template: '<button ui-sref="app.upload" id="fab-profile" class="button button-fab button-fab-bottom-right button-energized-900"><i class="icon ion-plus"></i> </button>',
-                controller: function ($timeout) {
+                template: '',
+                controller: function ($scope, $timeout) {
                     /*$timeout(function () {
                         document.getElementById('fab-profile').classList.toggle('on');
                     }, 800);*/
+
+                }
+            }
+        }
+    })
+    .state('app.feedback', {
+        url: '/feedback',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/feedback.html',
+                controller: 'FeedbackCtrl'
+            },
+            'fabContent': {
+                template: '',
+                controller: function ($scope, $timeout) {
+                    /*$timeout(function () {
+                        document.getElementById('fab-profile').classList.toggle('on');
+                    }, 800);*/
+
                 }
             }
         }
@@ -170,4 +200,26 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.service', 'i
 
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/app/login');
-});
+
+            
+})
+.directive('ngFileSelect', [ '$parse', '$timeout', function($parse, $timeout) {
+    return function(scope, elem, attr) {
+            var fn = $parse(attr['ngFileSelect']);
+            elem.bind('change', function(evt) {
+                var files = [], fileList, i;
+                fileList = evt.target.files;
+                if (fileList != null) {
+                    for (i = 0; i < fileList.length; i++) {
+                        files.push(fileList.item(i));
+                    }
+                }
+                $timeout(function() {
+                    fn(scope, {
+                        $files : files,
+                        $event : evt
+                    });
+                });
+            });
+        };
+    }]);

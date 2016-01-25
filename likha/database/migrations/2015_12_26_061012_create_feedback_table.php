@@ -22,8 +22,8 @@ class CreateFeedbackTable extends Migration
             $table->foreign('userid')
                   ->references('userid')->on('users')
                   ->onUpdate('cascade');
-            $table->integer('rate');
-            $table->text('feedback');
+            $table->string('rate')->default('n/a');
+            $table->text('feedback')->nullable();
             $table->timestamps();
         });
     }

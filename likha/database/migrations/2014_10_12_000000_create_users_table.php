@@ -21,8 +21,8 @@ class CreateUsersTable extends Migration
             $table->string('email', 40)->unique();
             $table->string('password', 60);
             $table->date('birthday');
-            $table->integer('contact_number');
-            $table->string('profilepicture',90)->default('img/default-profile-pic.png');
+            $table->string('contact_number',90);
+            $table->string('profilepicture',90)->default('default-profile-pic.png');
             $table->enum('user_type',['a','d','s']);
             $table->rememberToken();
             $table->timestamps();

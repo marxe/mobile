@@ -1,0 +1,46 @@
+<ion-view view-title="Feedback">
+    <ion-content ng-class="{expanded:isExpanded}" >
+      <div class="list card stable-bg ink ink-dark" ng-show="feeddata">
+          <h2 ng-show="user_type=='d'">Sent Feedback</h2>
+        </div>
+        <div class="list" ng-show="user_type=='d'">
+
+      <form   ng-submit="submit(feedback)" ng-hide="feeddata">
+      <div class="list">
+        <label class="item item-input item-select">
+          <div class="input-label"> Rate </div>
+          <select ng-model="feedback.rate" required>
+            <option value="0">Poor</option>
+            <option value="1">Below Average</option>
+            <option value="2">Average</option>
+            <option value="3">Good</option>
+            <option value="4">Better</option>
+            <option value="5">Best</option>
+          </select>
+        </label> <br>
+        <label class="item item-input item-floating-label">
+          <span class="input-label">Feedback</span>
+          <textarea name="name" rows="8" cols="40" ng-model="feedback.feedback" placeholder="Feedback" ></textarea>
+        </label> <br>
+
+      </div>
+      <div class="list">
+        <button type="submit"  class="button button-full button-royal-100 ink">Submit</button>
+      </div>
+    </form>
+  </div>
+    <div class="list card stable-bg ink ink-dark" ng-repeat="feed in feeddata track by feed.feedbackid" ng-show="user_type=='a'">
+      <div class="item item-avatar item-icon-right">
+        <img src="http://192.168.1.15:81/mobile/likha/public/uploads/{{feed.user.profilepicture}}">
+        <h2>{{feed.user.username}}</h2>
+        <p>{{feed.user.first_name}} {{feed.user.middle_name}} {{feed.user.last_name}}</p>
+        <p>Created on: {{feed.created_at}}</p>
+        <p>Rate: {{feed.rate}}</p>
+      </div>
+      <div class="item">
+        <p>{{feed.feedback}}</p>
+      </div>
+  </div>
+
+    </ion-content>
+</ion-view>

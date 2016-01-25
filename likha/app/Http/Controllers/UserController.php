@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\usermodel;
+use App\bidmodel;
+use App\itemmodel;
 use Illuminate\Support\Facades\Validator;
 use Response;
 use Hash;
@@ -21,6 +23,7 @@ class UserController extends Controller
     public function index()
     {
         $data = usermodel::all();
+        // $data->item;
         return $data;
     }
 
@@ -33,6 +36,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+      // return $request;
         $validator = Validator::make($request->all(), [
             'username'              => 'required|unique:users|max:45|min:5|alphaNum',
             'first_name'            => 'required|max:45',
@@ -42,7 +46,7 @@ class UserController extends Controller
             'password'              => 'required|max:60|min:8|alphaNum|confirmed',
             'password_confirmation' => 'required|max:60|min:8|alphaNum|same:password',
             'birthday'              => 'required|date',
-            'contact_number'        => 'required',
+            'contact_number'        => 'required|numeric',
             'user_type'             => 'required',
         ]);
 
@@ -55,10 +59,10 @@ class UserController extends Controller
         else {
           $data = $request->all();
           $data['password'] = Hash::make($data['password']);
-          usermodel::create($data);
+          $saved = usermodel::create($data);
           return Response::make([
               'message'   => 'Success Registered',
-              'data'      => $data
+              'data'      => $saved->userid
             ]);
         }
     }
@@ -71,14 +75,34 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $data = usermodel::find($id);
-
+        $data = usermodel::where('userid','=', $id)->first();
+        $bid = bidmodel::where('userid','=', $id)->where('status', '=', 1)->with('item')->get();
+        $item = itemmodel::where('userid','=', $id)->where('progress', '=', null)->with('bid')->with('users')->get();
         return Response::make([
             'message'   => 'Retrived',
-            'data'      => $data
+            'data'      => $data,
+            'bid'      => $bid,
+            'item'      => $item,
           ]);
     }
-
+    /**
+     * Display the specified resource by id
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $data = usermodel::where('userid','=', $id)->first();
+        $item = itemmodel::where('userid','=', $id)->where('progress', '>=', 0)->with('bid')->orderBy('itemid','desc')->with('users')->get();
+        $bid = bidmodel::where('userid','=', $id)->where('status', '=', 0)->orderBy('itemid','desc')->with('item')->get();
+        return Response::make([
+            'message'   => 'Retrived',
+            'data'      => $data,
+            'bid'      => $bid,
+            'item'      => $item,
+          ]);
+    }
 
     /**
      * Update the specified resource in storage.

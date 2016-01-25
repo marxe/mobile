@@ -51,7 +51,7 @@ class usermodel extends Model implements AuthenticatableContract,
      */
      public function item()
      {
-       return $this->hasMany('App\itemmodel');
+       return $this->hasMany('App\itemmodel','userid');
      }
 
      /**
@@ -61,7 +61,7 @@ class usermodel extends Model implements AuthenticatableContract,
       */
       public function bid()
       {
-        return $this->hasMany('App\bidmodel');
+        return $this->hasMany('App\bidmodel','userid');
       }
 
       /**
@@ -71,7 +71,7 @@ class usermodel extends Model implements AuthenticatableContract,
        */
        public function message()
        {
-         return $this->hasMany('App\messagemodel');
+         return $this->hasMany('App\messagemodel','userid');
        }
 
        /**
@@ -81,6 +81,6 @@ class usermodel extends Model implements AuthenticatableContract,
         */
         public function feedback()
         {
-          return $this->hasMany('App\feedbackmodel');
+          return $this->hasMany('App\feedbackmodel','userid');
         }
 }

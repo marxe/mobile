@@ -1,14 +1,57 @@
 <ion-view view-title="Upload">
-    <ion-content ng-class="{expanded:isExpanded}" class="animate-fade-slide-in">
+    <ion-content ng-class="{expanded:isExpanded}" >
+      <div class="" ng-show="message">
+        {{message}}
+        {{error.item_name[0]}} <br>
+        {{error.item_picture[0]}}<br>
+        {{error.maximum_price[0]}}<br>
+        {{error.minimum_price[0]}}<br>
+        {{error.category[0]}}<br>
+      </div>
+      <form   ng-submit="submit(item)">
       <div class="list">
-        <ion-md-input placeholder="Item Name" highlight-color="balanced" type="text"></ion-md-input>
-        <ion-md-input placeholder="Materials (use ',' to separate)" highlight-color="balanced" type="text"></ion-md-input>
-        <ion-md-input placeholder="Date to Finish" highlight-color="balanced" type="date"></ion-md-input>
-        <ion-md-input placeholder="Comment" highlight-color="balanced" type="textarea"></ion-md-input>
-        <ion-md-input placeholder="Photo" highlight-color="balanced" type="file"></ion-md-input>
+        <label class="item item-input item-floating-label">
+          <span class="input-label">Item Name</span>
+          <input type="text" ng-model="item.item_name" placeholder="Item Name" required>
+        </label>
+        <label class="item item-input item-floating-label">
+          <span class="input-label">Date to finish</span>
+          <input type="date" ng-model="item.date_to_finish" placeholder="Date to Finish" min="{{date}}" max="3000-12-31">
+        </label>
+        <label class="item item-input item-floating-label">
+          <span class="input-label">Minimum Price</span>
+          <input type="number" ng-model="item.minimum_price" placeholder="Minimum Price" min="1">
+        </label>
+        <label class="item item-input item-floating-label">
+          <span class="input-label">Maximum Price</span>
+          <input type="number" ng-model="item.maximum_price" placeholder="Maximum Price">
+        </label>
+        <label class="item item-input item-floating-label">
+          <span class="input-label">Qty</span>
+          <input type="number" ng-model="item.qty" placeholder="Qty">
+        </label>
+        <label class="item item-input item-floating-label">
+          <span class="input-label">Comment</span>
+          <textarea name="name" rows="8" cols="40" ng-model="item.comment" placeholder="Comment"></textarea>
+        </label> <br>
+        <label class="item item-input item-select">
+          <div class="input-label"> Category </div>
+          <select ng-model="item.category">
+            <option value="c">Clothes</option>
+            <option value="f">Footware</option>
+            <option value="ab">Bag and Accessories</option>
+            <option value="o">Occational</option>
+          </select>
+        </label>
+        <label class="item item-input item-floating-label">
+          <span class="input-label">Item Picture</span>
+          <input type="file" ng-file-select="onFileSelect($files)" placeholder="Item Picture">
+        </label>
       </div>
-      <div class="padding">
-        <button class="button button-full button-energized-100 ink">Upload</button>
+      <div class="list">
+        <button type="submit"  class="button button-full button-royal-100 ink">Upload</button>
       </div>
+    </form>
+
     </ion-content>
 </ion-view>

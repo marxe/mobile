@@ -20,12 +20,15 @@ class CreateItemTable extends Migration
                   ->references('userid')->on('users')
                   ->onUpdate('cascade');
             $table->string('item_name', 90);
-            $table->text('comment');
+            $table->string('item_picture', 90);
+            $table->text('comment')->nullable();
+            $table->decimal('minimum_price',10,2);
+            $table->decimal('maximum_price',10,2);
             $table->date('date_to_finish');
             $table->string('receipt', 90)->nullable();
-            $table->string('item_picture', 90);
             $table->string('tracking_number', 90)->nullable();
-            $table->enum('category',['c','f','ab','ho','o']);
+            $table->enum('category',['c','f','ab','o']);
+            $table->integer('qty');
             $table->timestamps();
         });
     }

@@ -1,29 +1,73 @@
 <ion-view view-title="Activity">
-    <ion-content ng-class="{expanded:isExpanded}" class="animate-fade-slide-in">
-        <div class="list card stable-bg ink ink-dark">
+    <ion-content ng-class="{expanded:isExpanded}">
+        <div class="list card stable-bg ink ink-dark" ng-repeat="work in item track by work.itemid" ng-hide="user.user_type=='a'">
           <div class="item item-avatar item-icon-right">
-            <img src="img/sansa.jpg">
-            <h2>Pretty Hate Machine</h2>
-            <p>Nine Inch Nails</p>
-            <i class="icon ion-email" ui-sref="app.message"></i>
+            <img src="http://192.168.1.15:81/mobile/likha/public/uploads/{{work.item_picture}}">
+            <h2>{{work.item_name}}</h2>
+            <p>Created on: {{work.created_at}}</p>
+            <p>Due on: {{work.date_to_finish}}</p>
+            <p ng-hide="work.progress!=100">Receipt Number: {{work.receipt}}</p>
+            <p ng-hide="work.progress!=100">Tracking Number: {{work.tracking_number}}</p>
+            <i class="icon ion-email" ng-click="message(work.itemid)" ng-hide="work.progress==100"></i>
           </div>
 
-          <div class="item item-image">
-            <img src="img/sansa-snowcastle3.jpg">
+          <div class="item item-image" ng-hide="work.progress==100">
+            <img src="http://192.168.1.15:81/mobile/likha/public/uploads/{{work.item_picture}}" >
           </div>
-
-          <a class="item item-icon-right assertive" href="#">
-            <progress value="100" max="100"></progress>
+          <a class="item item-icon-right assertive" href="#" ng-hide="work.progress == 100">
+            <progress value="{{work.progress}}" max="100"></progress>
             <i class="icon ion-checkmark-round"></i>
           </a>
+          <div class="list" ng-hide="work.receipt!=null">
+           <div class="item item-input-inset" ng-show="work.progress == 100" >
+            <label class="item-input-wrapper">
+              <input type="text" placeholder="Reciept Number" ng-model="receipt">
+            </label>
+            <button class="button button-small" ng-click="addReceipt(receipt, work.itemid)">
+              Submit
+            </button>
+          </div>
+        </div>
+          <div class="list" ng-show="work.tracking_number != null">
+            <button class="button button-full ink" ng-click="feed(work.itemid)" >Feedback</button>
+          </div>
+        </div>
+        <!-- artisan -->
+        <div class="list card stable-bg ink ink-dark" ng-repeat="work in bid track by work.bidid" ng-show="user.user_type=='a'">
+          <div class="item item-avatar item-icon-right">
+            <img src="http://192.168.1.15:81/mobile/likha/public/uploads/{{work.item.item_picture}}">
+            <h2>{{work.item.item_name}}</h2>
+            <p>Created on: {{work.item.created_at}}</p>
+            <p>Due on: {{work.item.date_to_finish}}</p>
+            <p ng-hide="work.item.progress!=100">Receipt Number: {{work.item.receipt}}</p>
+            <p ng-hide="work.item.progress!=100">Tracking Number: {{work.item.tracking_number}}</p>
+            <i class="icon ion-email" ui-sref="app.message" ng-hide="work.item.progress==100"></i>
+          </div>
 
-          <div class="list">
+          <div class="item item-image" ng-hide="work.item.progress==100">
+            <img src="http://192.168.1.15:81/mobile/likha/public/uploads/{{work.item.item_picture}}">
+          </div>
+
+          <div class="list" ng-hide="work.item.progress == 100">
             <div class="item range range-positive">
               0%
-              <input type="range" min="0" max="100" value="0">
+              <input type="range" min="0" max="100" ng-model="work.item.progress" ng-change="setProgress(work.item.itemid, work.item.progress)">
               100%
             </div>
           </div>
+          <div class="list" ng-hide="work.item.tracking_number!=null">
+          <div class="item item-input-inset" ng-show="work.item.progress == 100">
+            <label class="item-input-wrapper">
+              <input type="text" placeholder="Tracking Number" ng-model="data">
+            </label>
+            <button class="button button-small" ng-click="addTackingNumber(data, work.item.itemid)">
+              Submit
+            </button>
+          </div>
+        </div>
+        <div class="list" ng-show="work.item.receipt != null">
+          <button class="button button-full ink" ng-click="feed(work.itemid)" >Feedback</button>
+        </div>
         </div>
   </ion-content>
 </ion-view>

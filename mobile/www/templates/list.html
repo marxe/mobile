@@ -1,28 +1,30 @@
 <ion-view view-title="List">
-    <ion-content ng-class="{expanded:isExpanded}" class="animate-fade-slide-in">
-      <div class="list card stable-bg"> <div class="item item-avatar">
-        <img src="img/arya.jpg">
-        <h2>Arya Stark</h2>
-        <p>"Joffrey. Cersei. Ilyn Payne. Hound. Polliver. The Mountain."</p>
+    <ion-content ng-class="{expanded:isExpanded}" >
+      <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()"></ion-refresher>
+      <div class="list card stable-bg" ng-repeat="item in data track by item.itemid">
+      <div class="item item-avatar">
+        <img src="http://192.168.1.15:81/mobile/likha/public/uploads/{{item.users.profilepicture}}">
+        <h2>{{item.users.first_name}} {{item.users.middle_name}} {{item.users.last_name}}</h2>
+        <p>{{item.item_name}}</p>
       </div>
       <div class="item item-body">
-        <img class="full-image" src="img/crown.jpg">
+        <img class="full-image" src="http://192.168.1.15:81/mobile/likha/public/uploads/{{item.item_picture}}">
         <div class="list stable-bg list-inset">
-          <div class="item"> Material:  </div>
-          <div class="item"> Date Need: </div>
+          <div class="item"> Minimum Price:  {{item.minimum_price}}</div>
+          <div class="item"> Maximum Price:  {{item.maximum_price}}</div>
+          <div class="item"> Date Need: {{item.date_to_finish}}</div>
         </div>
         <p>
-          The quickest way to a man's heart is through Arya's needle. She has two speeds: Walk and Kill, and is the reason why Waldo is still hiding.
+          {{item.comment}}
         </p>
-          <p>
-            <a class="subdued">1 Wishlists</a>
-            <a class="subdued">5 Bidders</a>
-          </p>
+        <p ng-show="user.itemid==item.itemid">
+          Amount Bidded: PHP {{user.amount}}
+          on {{user.created_at}}
+        </p>
         </div>
-        <div class="item tabs tabs-secondary tabs-icon-left">
-          <a class="tab-item" data-ink-color="#336699" data-ink-opacity="0.5" ng-click="bid()"> <i class="icon ion-pricetag"></i> Bid </a>
-          <a class="tab-item" data-ink-color="#336699" data-ink-opacity="0.5"> <i class="icon ion-heart"></i> Wishlist </a>
-          <a class="tab-item" data-ink-color="#336699" data-ink-opacity="0.5"> <i class="icon ion-share"></i> Share </a> </div>
+        <div class="item tabs tabs-secondary tabs-icon-left"  ng-show="user_type=='a'" >
+          <a class="tab-item" data-ink-color="#336699" data-ink-opacity="0.5" ng-click="bidding(item.itemid, item.minimum_price, item.maximum_price)" ng-hide="user.itemid==item.itemid"> <i class="icon ion-pricetag"></i> Bid </a>
+          <a class="tab-item calm" data-ink-color="#336699" data-ink-opacity="0.5" ng-show="user.itemid==item.itemid"> <i class="icon ion-pricetag"></i> Bid </a>
         </div>
     </ion-content>
 </ion-view>

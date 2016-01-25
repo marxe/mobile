@@ -2,30 +2,41 @@
     <ion-content ng-class="{expanded:$scope.isExpanded}">
         <div class="hero slide-up" style="background-image: url('img/profile-bg.jpg');">
             <div class="content">
-                <div class="avatar" style="background-image: url('img/daenerys.jpg');"></div>
-                <h3><a class="light">Daenerys Targaryen</a></h3>
-                <h4>dragon_mommy</h4>
+                <div class="avatar" style="background-image: url('{{user.profilepicture}}');"></div>
+                <h3><a class="light">{{user.first_name}} {{user.middle_name}} {{user.last_name}}</a></h3>
+                <h4 ng-show="user.user_type == 'a'">Artisan</h4>
+                <h4 ng-show="user.user_type == 'd'">Designer</h4>
             </div>
         </div>
         <div class="tabs tabs-dark tabs-icon-top static">
             <a ui-sref="app.activity" class="tab-item">
-                <i class="icon ion-arrow-graph-up-right"></i> Activity <span class="badge badge-assertive">0</span>
+                <i class="icon ion-arrow-graph-up-right"></i> Activity
+                <!-- <span class="badge badge-assertive">0</span> -->
             </a>
             <a ui-sref="app.category" class="tab-item">
                 <i class="icon ion-images"></i> Category
             </a>
-            <a ui-sref="app.setting" class="tab-item">
+            <!-- <a ui-sref="app.setting" class="tab-item">
                 <i class="icon ion-images"></i> Settings
-            </a>
+            </a> -->
         </div>
-        <h4 class="content padding double-padding-x">My Workes</h4>
-        <div class="list animate-fade-slide-in-right">
+        <h4 class="content padding double-padding-x">Pendings</h4>
+      <div class="list" ng-repeat="pendbid in bid track by pendbid.bidid" ng-show="bid">
             <a class="item item-avatar item-icon-right">
-                <img src="img/tyrion.jpg">
-                <h2>Tyrion Lannister</h2>
-                <p>Rate</p>
+                <img src="http://192.168.1.15:81/mobile/likha/public/uploads/{{pendbid.item.item_picture}}">
+                <h2>{{pendbid.item.item_name}}</h2>
+                <p>{{pendbid.amount}}</p>
                 <i class="icon ion-thumbsup muted"></i>
             </a>
         </div>
+        <div class="list" ng-repeat="penditem in item track by penditem.itemid" ng-show="item">
+              <a class="item item-avatar item-icon-right" ng-click="selection(penditem.itemid, penditem.bid)">
+                  <img src="http://192.168.1.15:81/mobile/likha/public/uploads/{{penditem.item_picture}}">
+                  <h2>{{penditem.item_name}}</h2>
+                  <p>Due Date: {{penditem.date_to_finish}}</p>
+                  <p>Bidders: {{penditem.bid.length}}</p>
+              </a>
+          </div>
     </ion-content>
+    <button ng-show="show" ui-sref="app.upload" id="fab-profile" class="button button-fab button-fab-bottom-right button-energized-900"><i class="icon ion-plus"></i> </button>
 </ion-view>

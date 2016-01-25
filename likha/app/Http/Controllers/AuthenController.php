@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use Response;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -31,8 +32,17 @@ class AuthenController extends Controller
     {
       if (Auth::attempt(array('username' => $request->username, 'password' => $request->password), true))
         {
-          return 'login';
+            return Response::make([
+                'reply'    => 'login',
+                'logined'  => 'yes'
+              ]);
         }
+      else {
+        return Response::make([
+            'reply'    => 'Username/Password is Wrong/Required',
+            'logined'  => 'no'
+          ]);
+      }
     }
 
     /**

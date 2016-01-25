@@ -1,17 +1,23 @@
 <ion-view view-title="Message">
-    <ion-content ng-class="{expanded:isExpanded}" class="animate-fade-slide-in">
-      <div class="list">
+    <ion-content ng-class="{expanded:isExpanded}" >
+      <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()"></ion-refresher>
+      <div class="list" ng-repeat="letter in message track by letter.messageid">
+        <div class="list">
+
           <a class="item item-avatar" href="#">
-            <img src="venkman.jpg">
-            <h2>Venkman</h2>
-            <p>Back off, man. I'm a scientist.</p>
+            <img src="http://192.168.1.15:81/mobile/likha/public/uploads/{{letter.user.profilepicture}}">
+            <h2>{{letter.user.username}}</h2>
+            <p>{{letter.created_at}}</p> <br>
+            <p>{{letter.message}}</p>
           </a>
+          <hr>
+        </div>
       </div>
-      <div class="bar bar-footer item-input-inset">
+      <div class="bar item-input-inset">
         <label class="item-textarea-wrapper" style="width:100%;">
-          <textarea type="text" placeholder="   Message" ></textarea>
+          <textarea type="text" placeholder="   Message" ng-model="message.message" ></textarea>
         </label>
-        <button class="button button-clear">
+        <button class="button button-clear" ng-click="sent(message)">
           <i class="icon ion-paper-airplane placeholder-icon"></i>
         </button>
       </div>

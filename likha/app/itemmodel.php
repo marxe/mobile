@@ -26,16 +26,16 @@ class itemmodel extends Model
    *
    * @var array
    */
-  protected $fillable = ['userid', 'itemname', 'itempic' 'comment', 'datefinish', 'category', 'status', 'receipt' , 'trackingnumber'];
+  protected $fillable = ['userid', 'qty', 'item_name', 'item_picture', 'comment', 'date_to_finish', 'category', 'progress', 'minimum_price', 'maximum_price', 'receipt' , 'tracking_number'];
 
   /**
    * Get the user that owns the item.
    *
    * @var function
    */
-   public function user()
+   public function users()
    {
-       return $this->belongsTo('App\usermodel');
+       return $this->belongsTo('App\usermodel','userid');
    }
 
    /**
@@ -46,7 +46,7 @@ class itemmodel extends Model
 
    public function bid()
    {
-     return $this->hasMany('App\bidmodel');
+     return $this->hasMany('App\bidmodel','itemid');
    }
 
    /**
@@ -56,7 +56,7 @@ class itemmodel extends Model
     */
     public function message()
     {
-      return $this->hasMany('App\messagemodel');
+      return $this->hasMany('App\messagemodel','itemid');
     }
 
     /**
@@ -66,7 +66,7 @@ class itemmodel extends Model
      */
       public function feedback()
       {
-          return $this->hasOne('App\feedbackmodel');
+          return $this->hasOne('App\feedbackmodel', 'itemid');
       }
 
 }

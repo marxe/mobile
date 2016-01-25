@@ -14,12 +14,12 @@
     <ion-side-menu side="right">
         <ion-header-bar class="dark-bg expanded">
             <span class="avatar" style="background: url('img/likha.jpg'); background-size: cover;"></span>
-            <h2 ui-sref="app.profile">Username</h2>
+            <h2 ui-sref="app.profile">Dashboard</h2>
         </ion-header-bar>
         <ion-content class="stable-bg has-expanded-header">
             <ion-list>
                 <ion-item nav-clear menu-close ui-sref="app.activity">
-                    Activity <span class="badge badge-assertive">0</span>
+                    Activity
                 </ion-item>
                 <!-- <ion-item nav-clear menu-close ui-sref="app.profile">
                     Profile
@@ -30,7 +30,7 @@
                 <!-- <ion-item nav-clear menu-close ui-sref="app.gallery">
                     Gallery
                 </ion-item> -->
-                <ion-item nav-clear menu-close ui-sref="app.login">
+                <ion-item nav-clear menu-close ng-click="userout()">
                     Logout
                 </ion-item>
             </ion-list>
