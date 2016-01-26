@@ -41,7 +41,7 @@
             <p>Due on: {{work.item.date_to_finish}}</p>
             <p ng-hide="work.item.progress!=100">Receipt Number: {{work.item.receipt}}</p>
             <p ng-hide="work.item.progress!=100">Tracking Number: {{work.item.tracking_number}}</p>
-            <i class="icon ion-email" ui-sref="app.message" ng-hide="work.item.progress==100"></i>
+            <i class="icon ion-email" ng-click="message(work.item.itemid)" ng-hide="work.item.progress==100"></i>
           </div>
 
           <div class="item item-image" ng-hide="work.item.progress==100">
@@ -66,7 +66,7 @@
           </div>
         </div>
         <div class="list" ng-show="work.item.receipt != null">
-          <button class="button button-full ink" ng-click="feed(work.itemid)" >Feedback</button>
+          <button class="button button-full ink" ng-click="feed(work.item.itemid)" >Feedback</button>
         </div>
         </div>
   </ion-content>

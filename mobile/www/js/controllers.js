@@ -603,6 +603,7 @@ angular.module('starter.controllers', [])
           $location.path('app/feedback');
         }
         $scope.message = function(id){
+          console.log(id);
           localStorage.setItem("itemid", id);
           $location.path('app/message');
         }
@@ -837,6 +838,7 @@ angular.module('starter.controllers', [])
     {
         selector: '.animate-fade-slide-in .item'
     });
+    console.log(localStorage.getItem("itemid"));
     localservice.getData('http://192.168.1.15:81/mobile/likha/public/message/'+localStorage.getItem("itemid")).success(function(data, status, headers, config) {
           $scope.message=data.data;
           console.log($scope.message);
