@@ -1,11 +1,11 @@
 <ion-view view-title="Feedback">
     <ion-content ng-class="{expanded:isExpanded}" >
-      <div class="list card stable-bg ink ink-dark" ng-show="feeddata">
+      <div class="list card stable-bg ink ink-dark" ng-show="feeddata.length > 0">
           <h2 ng-show="user_type=='d'">Sent Feedback</h2>
         </div>
         <div class="list" ng-show="user_type=='d'">
 
-      <form   ng-submit="submit(feedback)" ng-hide="feeddata">
+      <form   ng-submit="submit(feedback)" ng-hide="feeddata.length > 0">
       <div class="list">
         <label class="item item-input item-select">
           <div class="input-label"> Rate </div>

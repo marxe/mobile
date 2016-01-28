@@ -115,11 +115,14 @@ class BidController extends Controller
           $saved = bidmodel::where('itemid','=', $id)->where('userid', '=', $request->userid)->first();
           $saved->status = $request->status;
           $saved->save();
+
+          bidmodel::where('itemid','=', $id)->where('status', '=', 1)->delete();
           return Response::make([
               'message'   => 'Updated',
               'data'      => $saved
             ]);
         }
+
     }
 
     /**

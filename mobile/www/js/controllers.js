@@ -601,6 +601,7 @@ angular.module('starter.controllers', [])
         $scope.feed = function(id){
           localStorage.setItem("itemid", id);
           $location.path('app/feedback');
+          console.log(localStorage.getItem("itemid"));
         }
         $scope.message = function(id){
           console.log(id);
@@ -902,6 +903,7 @@ angular.module('starter.controllers', [])
     {
         selector: '.animate-fade-slide-in .item'
     });
+    console.log(localStorage.getItem("itemid"));
     localservice.getData('http://192.168.1.15:81/mobile/likha/public/feedback/'+localStorage.getItem("itemid")).success(function(data, status, headers, config) {
           $scope.feeddata=data.data;
           $scope.user_type = localStorage.getItem("user_type");

@@ -1,47 +1,61 @@
 <ion-view view-title="register" align-title="left">
-    <ion-content style="background: url(img/bd.png) center; background-size: cover;">
-        <div class="hero no-header flat">
-            <div class="content">
-                <div class="app-icon"></div>
-            </div>
-        </div>
+    <ion-content style="background-color: #19376e; background-size: cover;">
+      <div class="content" style="margin-top:5%;">
+          <div class="app-icon"></div>
+      </div>
+
+        <!-- <div class="hero no-header flat">
+        </div> -->
         <form ng-submit="submit()" role="form">
 
-        <div class="list">
+
+          <div class="alert alert-danger list" style="margin-left:3%; margin-right:4%; margin-top:3%; " ng-show="message">
+            {{message}}
+          </div>
+
+        <div class="list" style="margin-right:8%;">
+
             <ion-md-input placeholder="Username" highlight-color="balanced" type="text" ng-model="newUser.username" required ></ion-md-input>
-            <span class="list">  {{error.username[0]}}</span>
+            <div  class="alert alert-danger list" style="margin-left:3%; width:auto;" ng-show="error.username">  {{error.username[0]}}</div>
+
             <ion-md-input placeholder="First Name" highlight-color="balanced" type="text" ng-model="newUser.first_name" required></ion-md-input>
-            <span class="list">  {{error.first_name[0]}}</span>
+            <div class="alert alert-danger list" style="margin-left:3%; margin-right:4%;" ng-show="error.first_name">  {{error.first_name[0]}}</div>
+
             <ion-md-input placeholder="Middle Name" highlight-color="balanced" type="text" ng-model="newUser.middle_name"></ion-md-input>
-            <span class="list">  {{error.middle_name[0]}}</span>
+            <div class="alert alert-danger list" style="margin-left:3%; margin-right:4%;" ng-show="error.middle_name">  {{error.middle_name[0]}}</div>
+
             <ion-md-input placeholder="Last Name" highlight-color="balanced" type="text" ng-model="newUser.last_name" required></ion-md-input>
-            <span class="list">  {{error.last_name[0]}}</span>
+            <div class="alert alert-danger list" style="margin-left:3%; margin-right:4%;" ng-show="error.last_name">  {{error.last_name[0]}}</div>
+
             <ion-md-input placeholder="Birthday" highlight-color="balanced" type="date" ng-model="newUser.birthday" required></ion-md-input>
-            <span class="list">  {{error.birthday[0]}}</span>
+            <div class="alert alert-danger list" style="margin-left:3%; margin-right:4%;" ng-show="error.birthday">  {{error.birthday[0]}}</div>
+
             <ion-md-input placeholder="Contact Number" highlight-color="balanced" type="text" ng-model="newUser.contact_number" required></ion-md-input>
-            <span class="list">  {{error.contact_number[0]}}</span>
+            <div class="alert alert-danger list" style="margin-left:3%; margin-right:4%;" ng-show="error.contact_number">  {{error.contact_number[0]}}</div>
+
             <ion-md-input placeholder="Email" highlight-color="balanced" type="email" ng-model="newUser.email" required></ion-md-input>
-            <span class="list">  {{error.email[0]}}</span>
+            <div class="alert alert-danger list" style="margin-left:3%; margin-right:4%;" ng-show="error.email">  {{error.email[0]}}</div>
+
             <ion-md-input placeholder="Password" highlight-color="energized" type="password" ng-model="newUser.password" required></ion-md-input>
-            <span class="list">  {{error.password[0]}}</span>
+            <div class="alert alert-danger list" style="margin-left:3%; margin-right:4%;" ng-show="error.password">  {{error.password[0]}}</div>
+
             <ion-md-input placeholder="Password Confirm" highlight-color="energized" type="password" ng-model="newUser.password_confirmation" required></ion-md-input> <br>
-            <span class="list">  {{error.password_confirmation[0]}}</span>
+            <div class="alert alert-danger list" style="margin-left:3%; margin-right:4%;" ng-show="error.password_confirmation">  {{error.password_confirmation[0]}}</div>
+
             <div class="list ink ink-dark title">
                 <center> <h1 class="title black">I am</h1> </center>
             </div>
+
             <ion-list>
-              <ion-radio ng-model="newUser.user_type" ng-value="'a'">Artisan</ion-radio>
-              <ion-radio ng-model="newUser.user_type" ng-value="'d'">Designer</ion-radio>
+              <ion-radio ng-model="newUser.user_type" ng-value="'a'" class="calm" > Artisan</ion-radio>
+              <ion-radio ng-model="newUser.user_type" ng-value="'d'" class="calm">Designer</ion-radio>
             </ion-list>
-            <span class="list">  {{error.user_type[0]}}</span>
-        </div>
-        <div class="list">
-          {{message}}
+            <span class="alert alert-danger list" style="margin-left:3%; margin-right:4%;" ng-show="error.user_type">  {{error.user_type[0]}}</span>
         </div>
         <div class="padding">
-          <button type="submit" class="button button-full button-energized-100 ink" >Register</button>
+          <button type="submit" class="button button-full button-assertive ink" >Register</button>
         </form>
-          <button ui-sref="app.login" class="button button-full button-royal-100 ink">Login</button>
+          <button ui-sref="app.login" class="button button-full button-positive ink">Login</button>
         </div>
     </ion-content>
 </ion-view>
