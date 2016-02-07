@@ -7,6 +7,9 @@
 
       <form   ng-submit="submit(feedback)" ng-hide="feeddata.length > 0">
       <div class="list">
+        <p>
+          NOTE: Rate and Leave Feedback to the Artisan's work
+        </p>
         <label class="item item-input item-select">
           <div class="input-label"> Rate </div>
           <select ng-model="feedback.rate" required>
@@ -20,7 +23,7 @@
         </label> <br>
         <label class="item item-input item-floating-label">
           <span class="input-label">Feedback</span>
-          <textarea name="name" rows="8" cols="40" ng-model="feedback.feedback" placeholder="Feedback" ></textarea>
+          <textarea required name="name" rows="8" cols="40" ng-model="feedback.feedback" placeholder="Feedback" ></textarea>
         </label> <br>
 
       </div>

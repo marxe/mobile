@@ -8,7 +8,7 @@
         {{error.minimum_price[0]}}<br>
         {{error.category[0]}}<br>
       </div>
-      <form   ng-submit="submit(item)">
+      <form  ng-submit="submit(item)">
       <div class="list">
         <label class="item item-input item-floating-label">
           <span class="input-label">Item Name</span>
@@ -20,11 +20,11 @@
         </label>
         <label class="item item-input item-floating-label">
           <span class="input-label">Minimum Price</span>
-          <input type="number" ng-model="item.minimum_price" placeholder="Minimum Price" min="1"  >
+          <input type="number" ng-model="item.minimum_price" placeholder="Minimum Price" min="1" string-to-number >
         </label>
         <label class="item item-input item-floating-label">
           <span class="input-label">Maximum Price</span>
-          <input type="number" ng-model="item.maximum_price" placeholder="Maximum Price" min="1" >
+          <input type="number" ng-model="item.maximum_price" placeholder="Maximum Price" min="1" string-to-number >
         </label>
         <label class="item item-input item-floating-label">
           <span class="input-label">Qty</span>
@@ -37,25 +37,8 @@
         <label class="item item-input item-select">
           <div class="input-label"> Category </div>
           <select ng-model="item.categoryid">
-            <option ng-repeat="set in category track by set.categoryid" ng-value="set.categoryid">{{set.category_name}}</option>
+            <option ng-repeat="set in category track by set.categoryid" ng-value="set.categoryid" ng-selected="set.categoryid == item.categoryid">{{set.category_name}}</option>
           </select>
-        </label>
-        <label class="item item-input item-floating-label">
-          <div class="" ng-show="fileerror">
-            {{fileerror}}
-          </div>
-          <span>Item Picture</span> <br>
-          <input type="file" ng-file-select="onFileSelect($files)" placeholder="Item Picture">
-        </label>
-        <label class="item item-input item-floating-label">
-          <span>Front Picture</span> <br>
-          <input type="file" ng-file-select="onFileSelects($files,'front')" placeholder="Item Picture"> <br>
-          <span>Back Picture</span> <br>
-          <input type="file" ng-file-select="onFileSelects($files,'back')" placeholder="Item Picture"><br>
-          <span>Left Side Picture</span> <br>
-          <input type="file" ng-file-select="onFileSelects($files, 'left')" placeholder="Item Picture"><br>
-          <span>Right Side Picture</span> <br>
-          <input type="file" ng-file-select="onFileSelects($files, 'right')" placeholder="Item Picture"><br>
         </label>
       </div>
       <div class="list">

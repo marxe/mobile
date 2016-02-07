@@ -12,8 +12,9 @@
             <p ng-show="work.item_status=='com'" >Status: <b style="color:blue;">Completed</b></p>
             <p ng-show="work.item_status=='ic'" >Status: <b style="color:orange;">In Cancellation</b></p>
             <p ng-hide="work.progress!=100">Receipt Number: {{work.receipt}}</p>
-            <p ng-hide="work.progress!=100">Tracking Number: {{work.tracking_number}}</p>
-            <button class="button button-small" ng-click="cancel(work.itemid)" ng-hide="work.item_status=='ic' || work.item_status == 'c'">Cancel</button>
+            <p ng-hide="work.progress!=100">Tracking Number: {{work.tracking_number}} <a ng-click="claim(work.itemid,'tracking_number')" style="color:blue;" ng-show="work.tracking_flag=='n'">Claim</a></p>
+            <button class="button button-small" ng-click="cancel(work.itemid)" ng-hide="work.item_status=='ic' || work.item_status=='c' || work.progress==100">Cancel</button>
+
             <p ng-hide="work.cancel.userid==user.userid">
               <button ng-hide="work.cancel==null" class="button button-small" ng-click="cancelaction(work.itemid, 'accept')" style="color:green;">Accept</button>
               <button ng-hide="work.cancel==null" class="button button-small"  ng-click="cancelaction(work.itemid, 'refusal')" style="color:red;">Refusal</button>
@@ -21,11 +22,10 @@
             <i class="icon ion-email" ng-click="message(work.itemid)"></i>
           </div>
           <div ng-hide="work.item_status == 'c'">
-
-          <div class="item item-image" ng-hide="work.progress==100">
+          <div class="item item-image" >
             <img src="http://localhost:81/mobile/likha/public/uploads/{{work.item_picture}}" >
           </div><br>
-          <div class="item item-image">
+          <div class="item item-image"  ng-hide="work.progress==100">
             <h2>Parts:</h2>
             <img ng-show="work.parts.front" style="width:24%; display:inline" class="full-image" src="http://localhost:81/mobile/likha/public/uploads/{{work.parts.front}}">
             <img ng-show="work.parts.back" style="width:24%; display:inline" class="full-image" src="http://localhost:81/mobile/likha/public/uploads/{{work.parts.back}}">
@@ -36,7 +36,7 @@
             <h2>Progress Picture:</h2>
             <img ng-repeat="picture in work.upprogress track by picture.upprogressid" style="width:80%; margin-left: auto;  margin-right: auto;" src="http://localhost:81/mobile/likha/public/uploads/{{picture.progress_picture}}">
           </div>
-          <a class="item item-icon-right assertive" href="#" ng-hide="work.progress == 100">
+          <a class="item item-icon-right assertive" href="#">
             <progress value="{{work.progress}}" max="100"></progress>
             {{work.progress}}%
           </a>
@@ -67,9 +67,9 @@
             <p ng-show="work.item.item_status=='c'" >Status: <b style="color:red;">Cancelled</b></p>
             <p ng-show="work.item.item_status=='com'" >Status: <b style="color:blue;">Completed</b></p>
             <p ng-show="work.item.item_status=='ic'" >Status: <b style="color:orange;">In Cancellation</b></p>
-            <p ng-hide="work.item.progress!=100">Receipt Number: {{work.item.receipt}}</p>
+            <p ng-hide="work.item.progress!=100">Receipt Number: {{work.item.receipt}} <a style="color:blue;" ng-click="claim(work.item.itemid,'receipt')" ng-show="work.item.receipt_flag=='n'">Claim</a></p>
             <p ng-hide="work.item.progress!=100">Tracking Number: {{work.item.tracking_number}}</p>
-            <button class="button button-small" ng-click="cancel(work.itemid)" ng-hide="work.item.item_status=='ic' || work.item.item_status == 'c'">Cancel</button>
+            <button class="button button-small" ng-click="cancel(work.itemid)" ng-hide="work.item.item_status=='ic' || work.item.item_status=='c' || work.item.progress==100">Cancel</button>
             <p ng-hide="work.item.cancel.userid==user.userid">
               <button ng-hide="work.item.cancel==null" class="button button-small" ng-click="cancelaction(work.item.itemid, 'accept')" style="color:green;">Accept</button>
               <button ng-hide="work.item.cancel==null" class="button button-small" ng-click="cancelaction(work.item.itemid, 'refusal')" style="color:red;">Refusal</button>
@@ -78,10 +78,10 @@
           </div>
           <div ng-hide = "work.item.item_status=='c'">
 
-          <div class="item item-image" ng-hide="work.item.progress==100">
+          <div class="item item-image">
             <img src="http://localhost:81/mobile/likha/public/uploads/{{work.item.item_picture}}">
           </div><br>
-          <div class="item item-image">
+          <div class="item item-image" ng-hide="work.item.progress==100">
             <h2>Parts:</h2>
             <img ng-show="work.item.parts.front" style="width:24%; display:inline" class="full-image" src="http://localhost:81/mobile/likha/public/uploads/{{work.item.parts.front}}">
             <img ng-show="work.item.parts.back" style="width:24%; display:inline" class="full-image" src="http://localhost:81/mobile/likha/public/uploads/{{work.item.parts.back}}">
@@ -99,7 +99,7 @@
               100%
             </div>
           </div>
-          <div class="list" ng-hide="work.item.progress == 100">
+          <div class="list">
             {{fileerror}}
             <div class="item range range-positive">
               <input type="file" ng-file-select="onFileSelect($files, work.item.itemid)" placeholder="Updated Picture">
@@ -108,9 +108,9 @@
           <div class="list" ng-hide="work.item.tracking_number!=null">
           <div class="item item-input-inset" ng-show="work.item.progress == 100">
             <label class="item-input-wrapper">
-              <input type="text" placeholder="Tracking Number" ng-model="data">
+              <input type="text" placeholder="Tracking Number" ng-model="track">
             </label>
-            <button class="button button-small" ng-click="addTackingNumber(data, work.item.itemid)">
+            <button class="button button-small" ng-click="addTackingNumber(track, work.item.itemid)">
               Submit
             </button>
           </div>

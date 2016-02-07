@@ -136,7 +136,6 @@ class PhotoController extends Controller
       }
       else
       {
-        // checking file is valid.
        if ($request->file('progress_picture')->isValid())
        {
          $destinationPath = 'uploads'; // upload path
@@ -189,7 +188,16 @@ class PhotoController extends Controller
       }
       else
       {
-        // checking file is valid.
+        if($request->file('front')==NUll && $request->file('back')==NUll && $request->file('right')==NUll && $request->file('left')==NUll)
+        {
+          $file = array('front' => null, 'back' => null, 'left' => null, 'right' => null,'itemid' =>$id );
+          $data = partsmodel::create($file);
+
+          return Response::make([
+              'message'   => 'Upload successfully',
+              'data'  => $data
+            ]);
+        }
        if ($request->file('front')->isValid() || $request->file('back')->isValid() || $request->file('right')->isValid() || $request->file('left')->isValid())
        {
          $destinationPath = 'uploads'; // upload path
@@ -236,10 +244,12 @@ class PhotoController extends Controller
       }
       else
       {
-        // sending back with error message.
+        $file = array('front' => null, 'back' => null, 'left' => null, 'right' => null,'itemid' =>$id );
+        $data = partsmodel::create($file);
+
         return Response::make([
-            'message'   => 'Upload Invalid',
-            'uploaded'  => 'no'
+            'message'   => 'Upload successfully',
+            'data'  => $data
           ]);
       }
       }

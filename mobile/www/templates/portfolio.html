@@ -8,7 +8,6 @@
             </div>
         </div>
         <div class="tabs tabs-dark tabs-icon-top static">
-          <h4>Created At: {{user.created_at}}</h4>
         </div>
         <h4 class="content padding double-padding-x">Works</h4>
         <div class="list" ng-repeat="works in item track by works.bidid" ng-show="item.length > 0">
@@ -16,12 +15,23 @@
                 <img src="http://localhost:81/mobile/likha/public/uploads/{{works.item.item_picture}}">
                 <h2>{{works.item.item_name}}</h2>
                 <h3>PHP {{works.amount}}</h3>
+                <h3>Rate {{works.item.feedback.rate}} </h3>
+                <p ng-show="works.item.item_status=='s'" >Status: <b style="color:green;">Started</b></p>
+                <p ng-show="works.item.item_status=='c'" >Status: <b style="color:red;">Cancelled</b></p>
+                <p ng-show="works.item.item_status=='com'" >Status: <b style="color:blue;">Completed</b></p>
+                <p ng-show="works.item.item_status=='ic'" >Status: <b style="color:orange;">In Cancellation</b></p>
+                <p>Feedback: </p>
+                <pre>
+                  {{works.item.feedback.feedback}} 
+                </pre>
                 <p>Progress:</p>
                 <progress value="{{works.item.progress}}" max="100"></progress>
                 <p>Item Image:</p>
-                <img style="width:80%; margin-left: auto;  margin-right: auto;" src="http://localhost:81/mobile/likha/public/uploads/{{works.item.item_picture}}"> <br>
+                <img style="width:50%; margin-left: 10%;" src="http://localhost:81/mobile/likha/public/uploads/{{works.item.item_picture}}"> <br>
                 <p>Item Output Image:</p>
-                <img style="width:80%; margin-left: auto;  margin-right: auto;" src="http://localhost:81/mobile/likha/public/uploads/{{works.item.picture_update}}" alt="" />
+                <div ng-repeat="pic in works.item.upprogress track by pic.upprogressid">
+                  <img style="width:70%; margin-left: auto;  margin-right: auto;" src="http://localhost:81/mobile/likha/public/uploads/{{pic.progress_picture}}" alt="" />
+                </div>
                 <!-- <i class="icon ion-thumbsup muted"></i> -->
             </a>
         </div>

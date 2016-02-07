@@ -69,7 +69,13 @@ class TransactionController  extends Controller
      */
     public function show($id)
     {
-        //
+        $data=itemmodel::find($id);
+        $data->receipt_flag = 'y';
+        $data->save();
+        return Response::make([
+            'message'   => 'Updated',
+            'data'      => $data
+          ]);
     }
 
     /**
@@ -80,7 +86,13 @@ class TransactionController  extends Controller
      */
     public function edit($id)
     {
-        //
+      $data=itemmodel::find($id);
+      $data->tracking_flag = 'y';
+      $data->save();
+      return Response::make([
+          'message'   => 'Updated',
+          'data'      => $data
+        ]);
     }
 
     /**

@@ -83,4 +83,13 @@ class usermodel extends Model implements AuthenticatableContract,
         {
           return $this->hasMany('App\feedbackmodel','userid');
         }
+        /**
+         * Get the feedback for the for user.
+         *
+         * @var function
+         */
+         public function report()
+         {
+           return $this->hasMany('App\reportmodel','userid');
+         }
 }

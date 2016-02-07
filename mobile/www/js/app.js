@@ -61,6 +61,18 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.service', 'n
             }
         }
     })
+    .state('app.editing', {
+        url: '/editing',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/editing.html',
+                controller: 'EditingCtrl'
+            },
+            'fabContent': {
+                template: ''
+            }
+        }
+    })
     .state('app.selection', {
         url: '/selection',
         views: {
@@ -110,12 +122,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.service', 'n
             }
         }
     })
-    .state('app.cancel', {
-        url: '/cancel',
+    .state('app.admin', {
+        url: '/admin',
         views: {
             'menuContent': {
-                templateUrl: 'templates/cancel.html',
-                controller: 'CancelCtrl'
+                templateUrl: 'templates/admin.html',
+                controller: 'AdminCtrl'
             },
             'fabContent': {
                 template: ''
@@ -236,4 +248,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.service', 'n
             });
         };
     }])
+    .directive('stringToNumber', function() {
+  return {
+    require: 'ngModel',
+    link: function(scope, element, attrs, ngModel) {
+      ngModel.$parsers.push(function(value) {
+        return '' + value;
+      });
+      ngModel.$formatters.push(function(value) {
+        return parseFloat(value, 10);
+      });
+    }
+  };
+});
 ;

@@ -106,7 +106,7 @@ class ItemController extends Controller
      */
     public function edit($id)
     {
-        $data = itemmodel::where('categoryid', '=', $id)->where('progress', '=', null)->with('users')->with('bid')->orderBy('itemid','desc')->get();
+        $data = itemmodel::where('categoryid', '=', $id)->where('progress', '=', null)->with('users')->with('bid')->with('parts')->orderBy('itemid','desc')->get();
 
         return Response::make([
             'data'        =>  $data
@@ -161,4 +161,48 @@ class ItemController extends Controller
           'message'   => 'Deleted'
         ]);
     }
+    public function editing(Request $request, $id)
+    {
+      // return $request;
+        $validator = Validator::make($request->all(), [
+            'item_name'               => 'required',
+            'date_to_finish'          => 'required|date',
+            'categoryid'              => 'required',
+            'minimum_price'           => 'required',
+            'maximum_price'           => 'required',
+            'qty'                     => 'required'
+        ]);
+
+        if ($validator->fails()) {
+          return Response::make([
+              'message'   => 'Validation Failed',
+              'errors'        => $validator->errors()
+            ]);
+        }
+        else {
+          $data = $request->all();
+          $saved = itemmodel::find($id);
+          $saved->item_name = $request->get('item_name');
+          $saved->date_to_finish = $request->get('date_to_finish');
+          $saved->categoryid = $request->get('categoryid');
+          $saved->minimum_price = $request->get('minimum_price');
+          $saved->maximum_price = $request->get('maximum_price');
+          $saved->comment = $request->get('comment');
+          $saved->qty = $request->get('qty');
+          $saved->save();
+          return Response::make([
+              'message'   => 'Successfully Added',
+              'data'      => $saved
+            ]);
+        }
+    }
+
+    public function finditem($id){
+      $data = itemmodel::find($id);
+
+      return Response::make([
+          'data'        =>  $data
+        ]);
+    }
+
 }

@@ -1,0 +1,27 @@
+<ion-view view-title="Likha">
+    <ion-content ng-class="{expanded:isExpanded}" >
+      <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()"></ion-refresher>
+      <div class="list" ng-repeat="letter in message track by letter.reportid" style="width:auto;">
+        <div class="list">
+          <a class="item" href="#">
+            <h2 ng-show="letter.sender == 'c'">{{letter.user.username}}</h2>
+            <h2 ng-show="letter.sender == 'a'"><b style="color:red;">Admin</b></h2>
+            <p>{{letter.created_at}}</p> <br>
+            <p>{{letter.subject}}</p> <br>
+            <pre>
+              {{letter.report}}
+            </pre>
+          </a>
+          <hr>
+        </div>
+      </div>
+      <div class="bar item-input-inset" >
+        <label class="item-textarea-wrapper"style="width:90%;" >
+          <textarea type="text" cols="50" placeholder="Message" ng-model="message.report" autofocus style="margin-left:2%;"></textarea>
+        </label>
+        <button class="button button-clear" ng-click="sent(message)">
+          <i class="icon ion-paper-airplane placeholder-icon"></i>
+        </button>
+      </div>
+    </ion-content>
+</ion-view>

@@ -306,6 +306,81 @@ angular.module('starter.controllers', [])
             $ionicLoading.hide();
         });
 })
+.controller('EditingCtrl', function($filter, $ionicLoading, localservice, $location, $scope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion, $ionicPopup)
+{
+    // Set Header
+    $scope.$parent.showHeader();
+    $scope.$parent.clearFabs();
+    $scope.$parent.setHeaderFab('left');
+
+    // Delay expansion
+    $timeout(function()
+    {
+        $scope.isExpanded = false;
+        $scope.$parent.setExpanded(false);
+    }, 300);
+
+    // Set Motion
+    ionicMaterialMotion.fadeSlideInRight();
+
+    // Set Ink
+    ionicMaterialInk.displayEffect();
+    //show Loading
+    $ionicLoading.show({
+    content: 'Loading',
+    animation: 'fade-in',
+    showBackdrop: true,
+    maxWidth: 200,
+    showDelay: 0
+    });
+    localservice.getData('http://localhost:81/mobile/likha/public/finding/'+localStorage.getItem("itemid")).success(function(data, status, headers, config) {
+          $scope.item = data.data;
+          $scope.item.date_to_finish = new Date($scope.item.date_to_finish);
+          console.log($scope.item);
+          localservice.getData('http://localhost:81/mobile/likha/public/category').success(function(data, status, headers, config) {
+                console.log(data);
+                $scope.category = data.data;
+                console.log($scope.category);
+                $ionicLoading.hide();
+              }).error(function(data, status, headers, config) {
+                  console.log(data);
+                  $ionicLoading.hide();
+              });
+          $ionicLoading.hide();
+        }).error(function(data, status, headers, config) {
+            console.log(data);
+            $ionicLoading.hide();
+        });
+        $scope.submit = function(item){
+          // console.log(item);
+          //show Loading
+          $ionicLoading.show({
+          content: 'Loading',
+          animation: 'fade-in',
+          showBackdrop: true,
+          maxWidth: 200,
+          showDelay: 0
+          });
+          item.date_to_finish = $filter('date')(new Date(item.date_to_finish), "yyyy-MM-dd");
+          console.log(item);
+          localservice.postReg('http://localhost:81/mobile/likha/public/editing/'+localStorage.getItem("itemid"),item).success(function(data, status, headers, config) {
+                console.log(data);
+                if(data.errors)
+                {
+                  $scope.error = data.errors;
+                  $scope.message = data.message;
+                }
+                else{
+                  // $location.path('app/profile');
+                }
+                $ionicLoading.hide();
+              }).error(function(data, status, headers, config) {
+                  console.log(data);
+                  $ionicLoading.hide();
+              });
+        }
+
+})
 
 .controller('ProfileCtrl', function($location,$ionicPopup, $ionicLoading, localservice, $scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk,  $ionicActionSheet)
 {
@@ -397,6 +472,11 @@ angular.module('starter.controllers', [])
           $scope.selection = function(id, data){
             localStorage.setItem("itemid", id);
             $location.path('app/selection');
+          }
+          $scope.editing= function(item)
+          {
+            localStorage.setItem("itemid", item);
+            $location.path('app/editing');
           }
 })
 
@@ -770,8 +850,57 @@ angular.module('starter.controllers', [])
                })
          }
        }
+       $scope.claim = function(item, action)
+       {
+         $ionicLoading.show({
+         content: 'Loading',
+         animation: 'fade-in',
+         showBackdrop: true,
+         maxWidth: 200,
+         showDelay: 0
+         });
+         if(action == 'receipt')
+         {
+           localservice.getData('http://localhost:81/mobile/likha/public/transaction/'+item).success(function(data, status, headers, config) {
+             localservice.getData('http://localhost:81/mobile/likha/public/user/'+localStorage.getItem("userid")+'/edit').success(function(data, status, headers, config) {
+                   console.log(data);
+                   $scope.user = data.data;
+                   $scope.item = data.item;
+                   $scope.bid = data.bid;
+                   $ionicLoading.hide();
+
+                 }).error(function(data, status, headers, config) {
+                     console.log(data);
+                     $ionicLoading.hide();
+
+                 })
+               }).error(function(data, status, headers, config) {
+                   console.log(data);
+                   $ionicLoading.hide();
+              })
+         }
+         else if(action == 'tracking_number'){
+           localservice.getData('http://localhost:81/mobile/likha/public/transaction/'+item+'/edit').success(function(data, status, headers, config) {
+             localservice.getData('http://localhost:81/mobile/likha/public/user/'+localStorage.getItem("userid")+'/edit').success(function(data, status, headers, config) {
+                   console.log(data);
+                   $scope.user = data.data;
+                   $scope.item = data.item;
+                   $scope.bid = data.bid;
+                   $ionicLoading.hide();
+
+                 }).error(function(data, status, headers, config) {
+                     console.log(data);
+                     $ionicLoading.hide();
+
+                 })
+               }).error(function(data, status, headers, config) {
+                   console.log(data);
+                   $ionicLoading.hide();
+              })
+         }
+       }
 })
-.controller('CancelCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk)
+.controller('AdminCtrl', function(localservice, $location,$scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk)
 {
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
@@ -789,6 +918,50 @@ angular.module('starter.controllers', [])
 
     // Activate ink for controller
     ionicMaterialInk.displayEffect();
+    localservice.getData('http://localhost:81/mobile/likha/public/admin/'+localStorage.getItem("userid")).success(function(data, status, headers, config) {
+          $scope.message=data.data;
+          console.log($scope.message);
+        }).error(function(data, status, headers, config) {
+            console.log(data);
+        });
+
+        $scope.sent= function(data){
+          data.userid = localStorage.getItem("userid");
+          data.subject = "Report";
+          data.sender = 'c';
+          console.log(data);
+          localservice.postReg('http://localhost:81/mobile/likha/public/admin',data).success(function(data, status, headers, config) {
+                if(data.errors)
+                {
+                  $scope.error = data.errors;
+                  $scope.message = data.message;
+                }
+                else{
+                  localservice.getData('http://localhost:81/mobile/likha/public/admin/'+localStorage.getItem("userid")).success(function(data, status, headers, config) {
+                        $scope.message=data.data;
+                        console.log($scope.message);
+                      }).error(function(data, status, headers, config) {
+                          console.log(data);
+                      });
+                }
+              }).error(function(data, status, headers, config) {
+                  console.log(data);
+              });
+        }
+
+    $scope.doRefresh = function() {
+      localservice.getData('http://localhost:81/mobile/likha/public/admin/'+localStorage.getItem("userid")).success(function(data, status, headers, config) {
+            $scope.message=data.data;
+            console.log($scope.message);
+          }).error(function(data, status, headers, config) {
+              console.log(data);
+          })
+      .finally(function() {
+        // Stop the ion-refresher from spinning
+        $scope.$broadcast('scroll.refreshComplete');
+      });
+   };
+
 })
 .controller('UploadCtrl', function($location, $filter,$ionicLoading, localservice, $scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk)
 {
@@ -880,6 +1053,7 @@ angular.module('starter.controllers', [])
             {
               $scope.error = data.errors;
               $scope.message = data.message;
+              console.log(data);
             }
             else{
               var fd = new FormData();
@@ -985,6 +1159,23 @@ angular.module('starter.controllers', [])
               console.log($scope.money);
               localservice.postReg('http://localhost:81/mobile/likha/public/bid',$scope.money).success(function(data, status, headers, config) {
                   $scope.user= data.data;
+
+                  localservice.getData('http://localhost:81/mobile/likha/public/item/'+localStorage.getItem("Category")+'/edit').success(function(data, status, headers, config) {
+                        $scope.data = data.data;
+                        console.log($scope.data);
+                        $ionicLoading.hide();
+                      }).error(function(data, status, headers, config) {
+                          console.log(data);
+                          $ionicLoading.hide();
+                      });
+                  localservice.getData('http://localhost:81/mobile/likha/public/bid/'+localStorage.getItem("userid")+'/edit').success(function(data, status, headers, config) {
+                        $scope.user = data.data;
+                        console.log($scope.user);
+                        $ionicLoading.hide();
+                      }).error(function(data, status, headers, config) {
+                          console.log(data);
+                          $ionicLoading.hide();
+                      });
                     return $scope.user;
                   }).error(function(data, status, headers, config) {
                     return data;
@@ -999,22 +1190,6 @@ angular.module('starter.controllers', [])
     {
       console.log('Tapped!', res);
       console.log(res);
-      localservice.getData('http://localhost:81/mobile/likha/public/item/'+localStorage.getItem("Category")+'/edit').success(function(data, status, headers, config) {
-            $scope.data = data.data;
-            console.log($scope.data);
-            $ionicLoading.hide();
-          }).error(function(data, status, headers, config) {
-              console.log(data);
-              $ionicLoading.hide();
-          });
-      localservice.getData('http://localhost:81/mobile/likha/public/bid/'+localStorage.getItem("userid")+'/edit').success(function(data, status, headers, config) {
-            $scope.user = data.data;
-            console.log($scope.user);
-            $ionicLoading.hide();
-          }).error(function(data, status, headers, config) {
-              console.log(data);
-              $ionicLoading.hide();
-          });
     });
 
    };

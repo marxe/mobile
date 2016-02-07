@@ -23,14 +23,15 @@
         <p>
           {{item.comment}}
         </p>
-        <p ng-show="user.itemid==item.itemid">
-          Amount Bidded: PHP {{user.amount}}
-          on {{user.created_at}}
+        <b>Bidders:</b>
+        <p ng-repeat="bid in item.bid track by bid.bidid">
+          Amount Bidded: PHP {{bid.amount}}
+          on {{bid.created_at}}
         </p>
         </div>
         <div class="item tabs tabs-secondary tabs-icon-left"  ng-show="user_type=='a'" >
-          <a class="tab-item" data-ink-color="#336699" data-ink-opacity="0.5" ng-click="bidding(item.itemid, item.minimum_price, item.maximum_price)" ng-hide="user.itemid==item.itemid"> <i class="icon ion-pricetag"></i> Bid </a>
-          <a class="tab-item calm" data-ink-color="#336699" data-ink-opacity="0.5" ng-show="user.itemid==item.itemid"> <i class="icon ion-pricetag"></i> Bid </a>
+          <a class="tab-item" data-ink-color="#336699" data-ink-opacity="0.5" ng-click="bidding(item.itemid, item.minimum_price, item.maximum_price)" > <i class="icon ion-pricetag"></i> Bid </a>
+          <!-- <a class="tab-item calm" data-ink-color="#336699" data-ink-opacity="0.5" ng-show="user.itemid==item.itemid"> <i class="icon ion-pricetag"></i> Bid </a> -->
         </div>
     </ion-content>
 </ion-view>
