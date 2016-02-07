@@ -39,7 +39,7 @@ class ItemController extends Controller
             'item_name'               => 'required',
             'item_picture'            => 'required|image',
             'date_to_finish'          => 'required|date',
-            'category'                => 'required',
+            'categoryid'              => 'required',
             'userid'                  => 'required',
             'minimum_price'           => 'required',
             'maximum_price'           => 'required',
@@ -106,7 +106,7 @@ class ItemController extends Controller
      */
     public function edit($id)
     {
-        $data = itemmodel::where('category', '=', $id)->where('progress', '=', null)->with('users')->with('bid')->orderBy('itemid','desc')->get();
+        $data = itemmodel::where('categoryid', '=', $id)->where('progress', '=', null)->with('users')->with('bid')->orderBy('itemid','desc')->get();
 
         return Response::make([
             'data'        =>  $data
@@ -136,6 +136,10 @@ class ItemController extends Controller
         else {
           $data = itemmodel::find($id);
           $data->progress = $request->progress;
+          $data->item_status = 's';
+          if ($data->progress == 100) {
+            $data->item_status = 'com';
+          }
           $data->save();
           return Response::make([
               'message'   => 'Updated',

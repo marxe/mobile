@@ -94,13 +94,23 @@ class UserController extends Controller
     public function edit($id)
     {
         $data = usermodel::where('userid','=', $id)->first();
-        $item = itemmodel::where('userid','=', $id)->where('progress', '>=', 0)->with('bid')->orderBy('itemid','desc')->with('users')->get();
-        $bid = bidmodel::where('userid','=', $id)->where('status', '=', 0)->orderBy('itemid','desc')->with('item')->get();
+        $item = itemmodel::where('userid','=', $id)->where('progress', '>=', 0)->with('bid')->with('users')->with('parts')->with('upprogress')->with('cancel')->orderBy('itemid')->get();
+        $bid = bidmodel::where('userid','=', $id)->where('status', '=', 0)->with('item')->with('item.upprogress')->with('item.parts')->with('item.cancel')->orderBy('itemid')->get();
         return Response::make([
             'message'   => 'Retrived',
             'data'      => $data,
             'bid'      => $bid,
             'item'      => $item,
+          ]);
+    }
+    public function portfolioData($id)
+    {
+        $data = usermodel::where('userid','=', $id)->first();
+        $bid = bidmodel::where('userid','=', $id)->where('status', '=', 0)->orderBy('itemid','desc')->with('item')->with('feedback')->get();
+        return Response::make([
+            'message'   => 'Retrived',
+            'data'      => $data,
+            'bid'      => $bid,
           ]);
     }
 

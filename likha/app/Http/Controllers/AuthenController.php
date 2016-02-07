@@ -32,10 +32,20 @@ class AuthenController extends Controller
     {
       if (Auth::attempt(array('username' => $request->username, 'password' => $request->password), true))
         {
+          if(Auth::user()->status == 'a')
+          {
             return Response::make([
                 'reply'    => 'login',
                 'logined'  => 'yes'
               ]);
+          }
+          else {
+            Auth::logout();
+            return Response::make([
+                'reply'    => 'Username is Deactivated',
+                'logined'  => 'no'
+              ]);
+          }
         }
       else {
         return Response::make([

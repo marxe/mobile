@@ -1,27 +1,10 @@
 <ion-view view-title="Categories">
     <ion-content ng-class="{expanded:isExpanded}" style="background-color:#ccc;">
         <div class="content has-header">
-            <div ng-click="storeCategory('c')" class="card animate-fade-slide-in-right" style="height: 200px; background: url(img/clothes.jpg) center; background-size: cover;">
-              <div class="item item-text-wrap">
-                  <h1  style="text-shadow: 1px 1px 3px #000;" class="assertive"><b>Clothes</b></h1>
-
+            <div ng-repeat="set in category track by set.categoryid" ng-click="storeCategory(set.categoryid)" class="card"  style="height: 200px; background: url(http://192.168.1.15:81/mobile/likha/public/uploads/{{set.category_picture}}) center; background-size: cover;">
+              <div class="item item-text-wrap" style="background-color: rgba(139, 137, 137, 0.5); height:101%;">
+                  <h1  style="text-shadow: 1px 1px 3px #000;" class="energized"><b>{{set.category_name}}</b></h1>
               </div>
-            </div>
-            <div ng-click="storeCategory('f')" class="card animate-fade-slide-in-right" style=" height: 200px; background: url(img/footware.jpg) center; background-size: cover;">
-              <div class="item item-text-wrap">
-                <h1  style="text-shadow: 1px 1px 3px #000;" class="assertive">  <b>Footware</b></h1>
-
-              </div>
-            </div>
-            <div ng-click="storeCategory('ab')" class="card animate-fade-slide-in-right" style=" height: 200px; background: url(img/accessoriesandbags.jpg) center; background-size: cover;">
-              <div class="item item-text-wrap">
-                <h1  style="text-shadow: 1px 1px 3px #000;" class="assertive">  <b>Accessories and Bags</b></h1>
-                  </div>
-            </div>
-            <div ng-click="storeCategory('o')" class="card animate-fade-slide-in-right" style=" height: 200px; background: url(img/occasional.jpg) center; background-size: cover;">
-              <div class="item item-text-wrap">
-            <h1  style="text-shadow: 1px 1px 3px #000;" class="assertive">    <b>Occassional</b></h1>
-                  </div>
             </div>
         </div>
     </ion-content>

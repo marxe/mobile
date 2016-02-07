@@ -18,7 +18,7 @@ angular.module('starter.service', [])
     // Simple GET request example:
     return $http({
       method: 'GET',
-      url: 'http://192.168.1.15:81/mobile/likha/public/authen/create'
+      url: 'http://localhost:81/mobile/likha/public/authen/create'
     });
   }
   this.getData = function(url)
@@ -34,7 +34,7 @@ angular.module('starter.service', [])
     // Simple POST request example:
     return $http({
       method: 'POST',
-      url: 'http://192.168.1.15:81/mobile/likha/public/authen',
+      url: 'http://localhost:81/mobile/likha/public/authen',
       headers: {
          'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
        },
@@ -59,7 +59,7 @@ angular.module('starter.service', [])
     return $http({
       method: 'POST',
       withCredentials: false,
-      url: 'http://192.168.1.15:81/mobile/likha/public/user',
+      url: 'http://localhost:81/mobile/likha/public/user',
        data:   Object.toparams(user),
        headers : {'Content-Type': 'application/x-www-form-urlencoded'}
     });
@@ -68,7 +68,7 @@ angular.module('starter.service', [])
   {
     return $http({
       method: 'POST',
-      url: 'http://192.168.1.15:81/mobile/likha/public/photo/'+ id,
+      url: 'http://localhost:81/mobile/likha/public/photo/'+ id,
       withCredentials: true,
       // params: {id: '@id'},
       headers: {'Content-Type': undefined},
@@ -88,8 +88,10 @@ angular.module('starter.service', [])
       data: data,
     });
   }
+
   this.putData = function(url,data)
   {
+    console.log(data);
     return $http({
       method: 'PUT',
       url: url,

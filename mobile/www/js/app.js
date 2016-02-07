@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.service', 'ngFileUpload',  'ionic-material', 'ionMdInput'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.service', 'ngFileUpload',  'imageupload', 'ionic-material', 'ionMdInput'])
 
 .run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
@@ -73,6 +73,18 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.service', 'n
             }
         }
     })
+    .state('app.portfolio', {
+        url: '/portfolio',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/portfolio.html',
+                controller: 'PortfolioCtrl'
+            },
+            'fabContent': {
+                template: ''
+            }
+        }
+    })
     .state('app.category', {
         url: '/category',
         views: {
@@ -98,12 +110,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.service', 'n
             }
         }
     })
-    .state('app.setting', {
-        url: '/setting',
+    .state('app.cancel', {
+        url: '/cancel',
         views: {
             'menuContent': {
-                templateUrl: 'templates/setting.html',
-                controller: 'SettingCtrl'
+                templateUrl: 'templates/cancel.html',
+                controller: 'CancelCtrl'
             },
             'fabContent': {
                 template: ''
@@ -201,7 +213,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.service', 'n
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/app/login');
 
-            
+
 })
 .directive('ngFileSelect', [ '$parse', '$timeout', function($parse, $timeout) {
     return function(scope, elem, attr) {
@@ -212,6 +224,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.service', 'n
                 if (fileList != null) {
                     for (i = 0; i < fileList.length; i++) {
                         files.push(fileList.item(i));
+                        // console.log(files);
                     }
                 }
                 $timeout(function() {
@@ -222,4 +235,5 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.service', 'n
                 });
             });
         };
-    }]);
+    }])
+;

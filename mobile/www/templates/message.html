@@ -5,18 +5,18 @@
         <div class="list">
 
           <a class="item item-avatar" href="#">
-            <img src="http://192.168.1.15:81/mobile/likha/public/uploads/{{letter.user.profilepicture}}">
+            <img src="http://localhost:81/mobile/likha/public/uploads/{{letter.user.profilepicture}}">
             <h2>{{letter.user.username}}</h2>
             <p>{{letter.created_at}}</p> <br>
-            <div style="white-space: nowrap;">
+            <pre>
               {{letter.message}}
-            </div>
+            </pre>
           </a>
           <hr>
         </div>
       </div>
-      <div class="bar item-input-inset">
-        <label class="item-textarea-wrapper" style="width:100%;">
+      <div class="bar item-input-inset" >
+        <label class="item-textarea-wrapper"style="width:90%;" >
           <textarea type="text" cols="50" placeholder="Message" ng-model="message.message" autofocus style="margin-left:2%;"></textarea>
         </label>
         <button class="button button-clear" ng-click="sent(message)">

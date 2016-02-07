@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\bidmodel;
+use App\itemmodel;
 use Illuminate\Support\Facades\Validator;
 use Response;
 
@@ -56,6 +57,9 @@ class BidController extends Controller
         else {
           $data = $request->all();
           $saved = bidmodel::create($data);
+          $item = itemmodel::find($saved->itemid);
+          $item->item_status = 'a';
+          $item->save();
           return Response::make([
               'message'   => 'Successfully Added',
               'data'      => $saved
@@ -85,7 +89,7 @@ class BidController extends Controller
      */
     public function edit($id)
     {
-      $data = bidmodel::where('userid', '=',$id)->with('user')->with('item')->first();
+      $data = bidmodel::where('userid', '=',$id)->with('user')->with('item')->get();
       return Response::make([
           'data'        => $data
         ]);

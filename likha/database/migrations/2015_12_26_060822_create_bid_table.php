@@ -22,6 +22,7 @@ class CreateBidTable extends Migration
             $table->foreign('userid')
                   ->references('userid')->on('users')
                   ->onUpdate('cascade');
+            $table->text('comment');
             $table->decimal('amount', 10, 2);
             $table->enum('status',['1','0']);
             $table->timestamps();

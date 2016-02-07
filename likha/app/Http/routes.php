@@ -17,12 +17,17 @@ Route::get('/', function () {
 
 
 Route::resource('user', 'UserController', ['except' => ['create']]);
+Route::get('user/{id}/portfolio', 'UserController@portfolioData');
 // Route::resource('photo', 'PhotoController', ['only' => ['store']]);
 Route::post('photo/{id}', 'PhotoController@store');
+Route::post('upload/{id}', 'PhotoController@update');
+Route::post('picture/{id}', 'PhotoController@multiSave');
 Route::post('transaction/{id}', 'TransactionController@store');
 Route::resource('authen', 'AuthenController', ['only' => ['index', 'store' , 'create']]);
 Route::resource('item', 'ItemController', ['only' => ['index', 'store','show','edit','destroy','update' ]]);
 Route::resource('transaction', 'TransactionController', ['only' => ['update']]);
+Route::resource('category', 'CategoryController', ['only' => ['index']]);
 Route::resource('message', 'MessageController', ['only' => [ 'store','show','destroy','update' ]]);
 Route::resource('feedback', 'FeedbackController', ['only' => [ 'index','store','show','destroy','update','edit']]);
 Route::resource('bid', 'BidController', ['only' => [ 'store','show','destroy','update','edit']]);
+Route::resource('cancel', 'CancelController', ['only' => ['update','show','store','edit']]);

@@ -31,7 +31,7 @@
   </div>
     <div class="list card stable-bg ink ink-dark" ng-repeat="feed in feeddata track by feed.feedbackid" ng-show="user_type=='a'">
       <div class="item item-avatar item-icon-right">
-        <img src="http://192.168.1.15:81/mobile/likha/public/uploads/{{feed.user.profilepicture}}">
+        <img src="http://localhost:81/mobile/likha/public/uploads/{{feed.user.profilepicture}}">
         <h2>{{feed.user.username}}</h2>
         <p>{{feed.user.first_name}} {{feed.user.middle_name}} {{feed.user.last_name}}</p>
         <p>Created on: {{feed.created_at}}</p>

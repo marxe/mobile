@@ -26,7 +26,7 @@ class itemmodel extends Model
    *
    * @var array
    */
-  protected $fillable = ['userid', 'qty', 'item_name', 'item_picture', 'comment', 'date_to_finish', 'category', 'progress', 'minimum_price', 'maximum_price', 'receipt' , 'tracking_number'];
+  protected $fillable = ['userid', 'categoryid', 'item_name', 'item_picture', 'progress', 'comment', 'minimum_price', 'maximum_price', 'date_to_finish', 'receipt', 'tracking_number', 'qty', 'status'];
 
   /**
    * Get the user that owns the item.
@@ -37,6 +37,15 @@ class itemmodel extends Model
    {
        return $this->belongsTo('App\usermodel','userid');
    }
+   /**
+    * Get the category that owns the item.
+    *
+    * @var function
+    */
+    public function category()
+    {
+        return $this->belongsTo('App\categorymodel','categoryid');
+    }
 
    /**
     * Get the bid for the for item.
@@ -68,5 +77,33 @@ class itemmodel extends Model
       {
           return $this->hasOne('App\feedbackmodel', 'itemid');
       }
+
+      /**
+       * Get the feedback record associated with the item.
+       *
+       * @var function
+       */
+        public function parts()
+        {
+            return $this->hasOne('App\partsmodel', 'itemid');
+        }
+      /**
+       * Get the feedback record associated with the item.
+       *
+       * @var function
+       */
+        public function upprogress()
+        {
+            return $this->hasMany('App\progressmodel', 'itemid');
+        }
+        /**
+         * Get the feedback record associated with the item.
+         *
+         * @var function
+         */
+          public function cancel()
+          {
+              return $this->hasOne('App\cancelmodel', 'itemid');
+          }
 
 }

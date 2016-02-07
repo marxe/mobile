@@ -25,7 +25,7 @@ class bidmodel extends Model
    *
    * @var array
    */
-  protected $fillable = ['itemid', 'userid', 'amount', 'status'];
+  protected $fillable = ['itemid', 'userid', 'amount', 'status','comment'];
 
   /**
    * Get the user that owns the bid.

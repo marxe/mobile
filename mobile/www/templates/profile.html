@@ -23,7 +23,7 @@
         <h4 class="content padding double-padding-x">Pendings</h4>
       <div class="list" ng-repeat="pendbid in bid track by pendbid.bidid" ng-show="bid">
             <a class="item item-avatar item-icon-right">
-                <img src="http://192.168.1.15:81/mobile/likha/public/uploads/{{pendbid.item.item_picture}}">
+                <img src="http://localhost:81/mobile/likha/public/uploads/{{pendbid.item.item_picture}}">
                 <h2>{{pendbid.item.item_name}}</h2>
                 <p>{{pendbid.amount}}</p>
                 <i class="icon ion-thumbsup muted"></i>
@@ -31,7 +31,7 @@
         </div>
         <div class="list" ng-repeat="penditem in item track by penditem.itemid" ng-show="item">
               <a class="item item-avatar item-icon-right" ng-click="selection(penditem.itemid, penditem.bid)">
-                  <img src="http://192.168.1.15:81/mobile/likha/public/uploads/{{penditem.item_picture}}">
+                  <img src="http://localhost:81/mobile/likha/public/uploads/{{penditem.item_picture}}">
                   <h2>{{penditem.item_name}}</h2>
                   <p>Due Date: {{penditem.date_to_finish}}</p>
                   <p>Bidders: {{penditem.bid.length}}</p>

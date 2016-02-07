@@ -3,12 +3,18 @@
       <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()"></ion-refresher>
       <div class="list card stable-bg" ng-repeat="item in data track by item.itemid">
       <div class="item item-avatar">
-        <img src="http://192.168.1.15:81/mobile/likha/public/uploads/{{item.users.profilepicture}}">
+        <img src="http://localhost:81/mobile/likha/public/uploads/{{item.users.profilepicture}}">
         <h2>{{item.users.first_name}} {{item.users.middle_name}} {{item.users.last_name}}</h2>
         <p>{{item.item_name}}</p>
       </div>
       <div class="item item-body">
-        <img class="full-image" src="http://192.168.1.15:81/mobile/likha/public/uploads/{{item.item_picture}}">
+        <p><b>Design:</b></p>
+        <img class="full-image" src="http://localhost:81/mobile/likha/public/uploads/{{item.item_picture}}">
+        <p><b>Parts:</b></p>
+        <img ng-show="item.parts.front" style="width:24%; display:inline" class="full-image" src="http://localhost:81/mobile/likha/public/uploads/{{item.parts.front}}">
+        <img ng-show="item.parts.back" style="width:24%; display:inline" class="full-image" src="http://localhost:81/mobile/likha/public/uploads/{{item.parts.back}}">
+        <img ng-show="item.parts.right" style="width:24%; display:inline" class="full-image" src="http://localhost:81/mobile/likha/public/uploads/{{item.parts.right}}">
+        <img ng-show="item.parts.left" style="width:24%; display:inline" class="full-image" src="http://localhost:81/mobile/likha/public/uploads/{{item.parts.left}}">
         <div class="list stable-bg list-inset">
           <div class="item"> Minimum Price:  {{item.minimum_price}}</div>
           <div class="item"> Maximum Price:  {{item.maximum_price}}</div>
