@@ -34,7 +34,7 @@ class CreateItemTable extends Migration
             $table->enum('tracking_flag', ['n','y']);
             $table->enum('receipt_flag', ['n','y']);
             $table->integer('qty');
-            $table->enum('item_status',['o','a','s','c','com','ic']);
+            $table->enum('item_status',['o','a','s','can','com','ic']);
             $table->timestamps();
         });
     }

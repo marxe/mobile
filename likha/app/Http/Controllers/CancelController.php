@@ -75,7 +75,7 @@ class CancelController extends Controller
     public function show($id)
     {
       $item = itemmodel::find($id);
-      $item->item_status = 'c';
+      $item->item_status = 'can';
       $item->save();
       $data = cancelmodel::where('itemid','=',$id)->first();
       cancelmodel::destroy($data->cancelid);

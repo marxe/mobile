@@ -1,0 +1,23 @@
+<ion-view view-title="register" align-title="left">
+  <!-- <ion-content style="background-color:#19376e; background-size: cover;"> -->
+    <ion-content style="background-color:#CD69C9; background-size: cover;">
+        <div class="hero no-header flat">
+            <div class="content">
+                <div class="app-icon"></div>
+            </div>
+        </div>
+        <div class="error">
+          {{message}} <br>
+          {{error.profilepicture}}
+        </div>
+        {{fileerror}}
+        <label class="item item-input item-floating-label">
+          <span>Profile Picture</span> <br>
+          <input type="file" ng-file-select="onFileSelect($files)" placeholder="Profile Picture">
+        </label>
+        <div class="padding">
+          <button class="button button-full button-assertive ink" type="submit" ng-click="add()">Upload</button>
+          <button  ui-sref="app.login"class="button button-full button-positive ink">Skip</button>
+        </div>
+    </ion-content>
+</ion-view>

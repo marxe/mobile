@@ -1,0 +1,40 @@
+<ion-view view-title="Portfolio" >
+    <ion-content ng-class="{expanded:$scope.isExpanded}">
+        <div class="hero slide-up" style="background-image: url('img/portfolio-bg.jpg');">
+            <div class="content">
+                <div class="avatar" style="background-image: url('http://localhost/mobile/likha/public/uploads/{{user.profilepicture}}');"></div>
+                <h3><a class="light">{{user.first_name}} {{user.middle_name}} {{user.last_name}}</a></h3>
+                <h4>{{user.contact_number}} | {{user.email}}</h4>
+            </div>
+        </div>
+        <div class="tabs tabs-dark tabs-icon-top static">
+        </div>
+        <h4 class="content padding double-padding-x">Works</h4>
+        <div class="list" ng-repeat="works in item track by works.bidid" ng-show="item.length > 0">
+            <a class="item item-avatar item-icon-right">
+                <img src="http://localhost/mobile/likha/public/uploads/{{works.item.item_picture}}">
+                <h2>{{works.item.item_name}}</h2>
+                <h3>PHP {{works.amount}}</h3>
+                <h3>Rate {{works.item.feedback.rate}} </h3>
+                <p ng-show="works.item.item_status=='s'" >Status: <b style="color:green;">Started</b></p>
+                <p ng-show="works.item.item_status=='c'" >Status: <b style="color:red;">Cancelled</b></p>
+                <p ng-show="works.item.item_status=='com'" >Status: <b style="color:blue;">Completed</b></p>
+                <p ng-show="works.item.item_status=='ic'" >Status: <b style="color:orange;">In Cancellation</b></p>
+                <p>Feedback: </p>
+                <pre>
+                  {{works.item.feedback.feedback}}
+                </pre>
+                <p>Progress:</p>
+                <progress value="{{works.item.progress}}" max="100"></progress>
+                <p>Item Image:</p>
+                <img style="width:50%; margin-left: 10%;" src="http://localhost/mobile/likha/public/uploads/{{works.item.item_picture}}"> <br>
+                <p>Item Output Image:</p>
+                <div ng-repeat="pic in works.item.upprogress track by pic.upprogressid">
+                  <img style="width:70%; margin-left: auto;  margin-right: auto;" src="http://localhost/mobile/likha/public/uploads/{{pic.progress_picture}}" alt="" />
+                </div>
+                <!-- <i class="icon ion-thumbsup muted"></i> -->
+            </a>
+        </div>
+    </ion-content>
+    <button ng-show="show" ui-sref="app.upload" id="fab-profile" class="button button-fab button-fab-bottom-right button-energized-900"><i class="icon ion-plus"></i> </button>
+</ion-view>

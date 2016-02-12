@@ -1,0 +1,37 @@
+<ion-view view-title="List">
+    <ion-content ng-class="{expanded:isExpanded}" >
+      <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()"></ion-refresher>
+      <div class="list card stable-bg" ng-repeat="item in data track by item.itemid">
+      <div class="item item-avatar">
+        <img src="http://localhost/mobile/likha/public/uploads/{{item.users.profilepicture}}">
+        <h2>{{item.users.first_name}} {{item.users.middle_name}} {{item.users.last_name}}</h2>
+        <p>{{item.item_name}}</p>
+      </div>
+      <div class="item item-body">
+        <p><b>Design:</b></p>
+        <img class="full-image" src="http://localhost/mobile/likha/public/uploads/{{item.item_picture}}">
+        <p><b>Parts:</b></p>
+        <img ng-show="item.parts.front" style="width:24%; display:inline" class="full-image" src="http://localhost/mobile/likha/public/uploads/{{item.parts.front}}">
+        <img ng-show="item.parts.back" style="width:24%; display:inline" class="full-image" src="http://localhost/mobile/likha/public/uploads/{{item.parts.back}}">
+        <img ng-show="item.parts.right" style="width:24%; display:inline" class="full-image" src="http://localhost/mobile/likha/public/uploads/{{item.parts.right}}">
+        <img ng-show="item.parts.left" style="width:24%; display:inline" class="full-image" src="http://localhost/mobile/likha/public/uploads/{{item.parts.left}}">
+        <div class="list stable-bg list-inset">
+          <div class="item"> Minimum Price:  {{item.minimum_price}}</div>
+          <div class="item"> Maximum Price:  {{item.maximum_price}}</div>
+          <div class="item"> Date Need: {{item.date_to_finish}}</div>
+        </div>
+        <p>
+          {{item.comment}}
+        </p>
+        <b>Bidders:</b>
+        <p ng-repeat="bid in item.bid track by bid.bidid">
+          Amount Bidded: PHP {{bid.amount}}
+          on {{bid.created_at}}
+        </p>
+        </div>
+        <div class="item tabs tabs-secondary tabs-icon-left"  ng-show="user_type=='a'" >
+          <a class="tab-item" data-ink-color="#336699" data-ink-opacity="0.5" ng-click="bidding(item.itemid, item.minimum_price, item.maximum_price)" > <i class="icon ion-pricetag"></i> Bid </a>
+          <!-- <a class="tab-item calm" data-ink-color="#336699" data-ink-opacity="0.5" ng-show="user.itemid==item.itemid"> <i class="icon ion-pricetag"></i> Bid </a> -->
+        </div>
+    </ion-content>
+</ion-view>
