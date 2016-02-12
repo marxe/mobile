@@ -62,7 +62,7 @@ class UserController extends Controller
           $data = $request->all();
           $data['password'] = Hash::make($data['password']);
           $saved = usermodel::create($data);
-          $saved->status = 'd';
+          $saved->status = 'i';
           $saved->save();
           if($saved)
           {

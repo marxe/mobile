@@ -89,8 +89,11 @@ class AdminController extends Controller
     public function edit($id)
     {
       $data = usermodel::find(Crypt::decrypt($id));
-      $data->status = 'a';
-      $data->save();
+      if($data->status == 'i')
+      {
+        $data->status = 'a';
+        $data->save();
+      }
        return redirect('http://custonix.com');
     }
 

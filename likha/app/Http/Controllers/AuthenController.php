@@ -39,10 +39,17 @@ class AuthenController extends Controller
                 'logined'  => 'yes'
               ]);
           }
-          else {
+          else if(Auth::user()->status == 'd'){
             Auth::logout();
             return Response::make([
-                'reply'    => 'Username is Deactivated',
+                'reply'    => 'Username is Deactivated. Please check your email for re-activation',
+                'logined'  => 'no'
+              ]);
+          }
+          else{
+            Auth::logout();
+            return Response::make([
+                'reply'    => 'Username is Inactive. Please check your email for activation.',
                 'logined'  => 'no'
               ]);
           }
