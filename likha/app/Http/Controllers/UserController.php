@@ -12,6 +12,8 @@ use App\itemmodel;
 use Illuminate\Support\Facades\Validator;
 use Response;
 use Hash;
+use Mail;
+use Crypt;
 
 class UserController extends Controller
 {
@@ -60,6 +62,15 @@ class UserController extends Controller
           $data = $request->all();
           $data['password'] = Hash::make($data['password']);
           $saved = usermodel::create($data);
+          $saved->status = 'd';
+          $saved->save();
+          if($saved)
+          {
+            $saved->rand = Crypt::encrypt($saved->userid);
+            Mail::send('message', ['data'=>$saved], function($mail) use ($data){
+              $mail->to($data['email'],$data['username'])->subject('Welcome to Likha');
+            });
+          }
           return Response::make([
               'message'   => 'Success Registered',
               'data'      => $saved->userid

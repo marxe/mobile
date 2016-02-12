@@ -9,6 +9,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Response;
 use App\reportmodel;
+use App\usermodel;
+use Crypt;
 
 class AdminController extends Controller
 {
@@ -86,7 +88,10 @@ class AdminController extends Controller
      */
     public function edit($id)
     {
-        //
+      $data = usermodel::find(Crypt::decrypt($id));
+      $data->status = 'a';
+      $data->save();
+       return redirect('http://custonix.com');
     }
 
     /**
